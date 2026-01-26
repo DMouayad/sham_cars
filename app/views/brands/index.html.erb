@@ -1,0 +1,40 @@
+<% page_title "EV Brands" %>
+
+<div class="section-padding">
+  <div class="container-app">
+    <%= render "components/page_header",
+        title: "Electric Vehicle Brands",
+        subtitle: "Explore #{@brands.count} manufacturers" %>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+      <% @brands.each do |brand| %>
+        <%= link_to brand_path(brand.slug), class: "card bg-base-100 shadow hover:shadow-lg transition-all hover:-translate-y-1" do %>
+          <div class="card-body items-center text-center p-6">
+            <% if brand.logo.present? %>
+              <img src="<%= brand.logo %>" alt="<%= brand.name %>" class="h-16 w-auto object-contain mb-3">
+            <% else %>
+              <div class="text-5xl mb-3">🏭</div>
+            <% end %>
+
+            <h2 class="card-title text-lg"><%= brand.name %></h2>
+
+            <% if brand.country.present? %>
+              <p class="text-sm text-base-content/60"><%= brand.country %></p>
+            <% end %>
+
+            <div class="badge badge-ghost mt-2">
+              <%= pluralize(brand.published_vehicles_count, "vehicle") %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% if @brands.empty? %>
+      <%= render "components/empty_state",
+          icon: "🏭",
+          title: "No brands yet",
+          message: "Check back soon for updates" %>
+    <% end %>
+  </div>
+</div>

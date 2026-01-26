@@ -1,0 +1,15 @@
+<%# app/views/admin/vehicles/new.html.erb %>
+
+<% content_for :title, "New Vehicle" %>
+
+<div class="mb-6">
+  <div class="text-sm breadcrumbs">
+    <ul>
+      <li><%= link_to "Vehicles", admin_vehicles_path %></li>
+      <li>New</li>
+    </ul>
+  </div>
+  <h1 class="text-2xl font-bold">New Vehicle</h1>
+</div>
+
+<%= render "form", vehicle: @vehicle %>

@@ -1,0 +1,84 @@
+<% content_for :title, "ArenaEV - Discover Electric Vehicles" %>
+
+<!-- Hero Section -->
+<section class="hero min-h-[60vh] bg-linear-to-br from-primary/10 to-secondary/10">
+  <div class="hero-content text-center py-12 md:py-20">
+    <div class="max-w-2xl">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold">
+        Discover Your Next
+        <span class="text-primary">Electric Vehicle</span>
+      </h1>
+      <p class="py-6 text-lg text-base-content/70">
+        Compare specs, prices, and features of the latest electric cars from top manufacturers.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <%= link_to "Browse Vehicles", vehicles_path, class: "btn btn-primary btn-lg" %>
+        <%= link_to "Compare EVs", comparison_path, class: "btn btn-outline btn-lg" %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Vehicles -->
+<% if @featured_vehicles.any? %>
+  <section class="section-padding bg-base-100">
+    <div class="container-app">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl md:text-3xl font-bold">Featured Vehicles</h2>
+        <%= link_to "View All →", vehicles_path, class: "btn btn-ghost btn-sm" %>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <% @featured_vehicles.each do |vehicle| %>
+          <%= render "components/vehicle_card", vehicle: vehicle %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<!-- Brands Section -->
+<% if @brands.any? %>
+  <section class="section-padding bg-base-200">
+    <div class="container-app">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl md:text-3xl font-bold">Popular Brands</h2>
+        <%= link_to "All Brands →", brands_path, class: "btn btn-ghost btn-sm" %>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
+        <% @brands.each do |brand| %>
+          <%= render "components/brand_card", brand: brand %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<!-- Body Types Section -->
+<section class="section-padding bg-base-100">
+  <div class="container-app">
+    <h2 class="text-2xl md:text-3xl font-bold mb-6">Browse by Type</h2>
+
+    <div class="flex flex-wrap gap-3">
+      <% @body_types.each do |body_type| %>
+        <%= link_to vehicles_path(q: { body_type_id_eq: body_type.id }),
+            class: "btn btn-outline gap-2" do %>
+          <span class="text-xl"><%= body_type.display_icon %></span>
+          <span><%= body_type.name %></span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section-padding bg-primary text-primary-content">
+  <div class="container-app text-center">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to Go Electric?</h2>
+    <p class="mb-6 opacity-90 max-w-xl mx-auto">
+      Compare multiple electric vehicles side by side to find the perfect match for your needs.
+    </p>
+    <%= link_to "Start Comparing", comparison_path, class: "btn btn-secondary btn-lg" %>
+  </div>
+</section>

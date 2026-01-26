@@ -1,0 +1,68 @@
+<% vehicle = local_assigns[:vehicle] %>
+
+<div class="card bg-base-100 shadow-md hover:shadow-xl transition-shadow duration-300">
+  <!-- Image -->
+  <figure class="aspect-[16/10] bg-base-200">
+    <img
+      src="<%= vehicle.primary_image_url %>"
+      alt="<%= vehicle.full_name %>"
+      class="w-full h-full object-cover"
+      loading="lazy"
+>
+  </figure>
+
+  <div class="card-body p-4">
+    <!-- Brand & Name -->
+    <p class="text-xs text-base-content/60 uppercase tracking-wide"><%= vehicle.brand.name %></p>
+    <h3 class="card-title text-base md:text-lg leading-tight">
+      <%= vehicle.name %>
+      <% if vehicle.featured? %>
+        <span class="badge badge-secondary badge-sm">Featured</span>
+      <% end %>
+    </h3>
+
+    <!-- Quick Specs -->
+    <div class="flex flex-wrap gap-2 mt-2">
+      <% vehicle.specs_summary.first(3).each do |spec| %>
+        <span class="inline-flex items-center gap-1 text-xs bg-base-200 px-2 py-1 rounded">
+          <span><%= spec[:icon] %></span>
+          <span><%= spec[:value] %></span>
+        </span>
+      <% end %>
+    </div>
+
+    <!-- Price & Actions -->
+    <div class="flex items-center justify-between mt-4 pt-3 border-t border-base-200">
+      <div>
+        <p class="text-xs text-base-content/60">Starting from</p>
+        <p class="font-bold text-primary"><%= vehicle.price_display %></p>
+      </div>
+
+      <div class="flex gap-1">
+        <%= link_to vehicle_path(vehicle.slug), class: "btn btn-primary btn-sm" do %>
+          View
+        <% end %>
+
+        <% if comparison_vehicle_slugs.include?(vehicle.slug) %>
+          <%= button_to remove_comparison_path(vehicle.slug),
+              method: :delete,
+              class: "btn btn-ghost btn-sm btn-square",
+              title: "Remove from compare" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          <% end %>
+        <% else %>
+          <%= button_to add_comparison_path(vehicle.slug),
+              method: :post,
+              class: "btn btn-ghost btn-sm btn-square",
+              title: "Add to compare" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

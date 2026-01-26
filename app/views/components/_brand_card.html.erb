@@ -1,0 +1,20 @@
+<%# Usage: render "components/brand_card", brand: @brand %>
+
+<% brand = local_assigns[:brand] %>
+
+<%= link_to brand_path(brand.slug), class: "card bg-base-100 shadow hover:shadow-lg transition-shadow" do %>
+  <div class="card-body items-center text-center p-4 md:p-6">
+    <% if brand.logo.present? %>
+      <img src="<%= brand.logo %>" alt="<%= brand.name %>" class="h-12 w-auto object-contain mb-2" />
+    <% else %>
+      <div class="text-4xl mb-2">🏭</div>
+    <% end %>
+
+    <h3 class="card-title text-base"><%= brand.name %></h3>
+
+    <% count = brand.published_vehicles_count %>
+    <p class="text-sm text-base-content/60">
+      <%= pluralize(count, "vehicle") %>
+    </p>
+  </div>
+<% end %>

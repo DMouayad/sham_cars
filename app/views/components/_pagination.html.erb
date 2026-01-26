@@ -1,0 +1,14 @@
+<%# app/views/components/_pagination.html.erb %>
+
+<% if local_assigns[:pagy] && pagy.last > 1 %>
+  <nav class="flex flex-col items-center gap-4 mt-8" aria-label="Pagination">
+    <div class="pagy join">
+      <%== pagy.series_nav %>
+    </div>
+
+    <p class="text-sm text-base-content/60">
+      Page <%= pagy.page %> of <%= pagy.last %>
+      (<%= pagy.count %> total)
+    </p>
+  </nav>
+<% end %>

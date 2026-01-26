@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="arena">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for(:title) || "Admin" %> | ArenaEV</title>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body class="min-h-screen bg-base-200">
+  <div class="drawer lg:drawer-open">
+    <input id="admin-drawer" type="checkbox" class="drawer-toggle" />
+
+    <!-- Main Content -->
+    <div class="drawer-content flex flex-col">
+      <!-- Top Navbar -->
+      <div class="navbar bg-base-100 shadow-sm lg:hidden">
+        <div class="flex-none">
+          <label for="admin-drawer" class="btn btn-square btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-6 w-6 stroke-current">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </label>
+        </div>
+        <div class="flex-1">
+          <span class="text-xl font-bold">ArenaEV Admin</span>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="p-4 lg:p-6">
+        <% if flash[:notice] %>
+          <div role="alert" class="alert alert-success mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span><%= flash[:notice] %></span>
+          </div>
+        <% end %>
+
+        <% if flash[:alert] %>
+          <div role="alert" class="alert alert-error mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span><%= flash[:alert] %></span>
+          </div>
+        <% end %>
+
+        <%= yield %>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="drawer-side">
+      <label for="admin-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+
+      <aside class="bg-base-100 min-h-screen w-64 p-4">
+        <!-- Logo -->
+        <div class="mb-6 flex items-center gap-2 px-2">
+          <span class="text-2xl">⚡</span>
+          <span class="text-xl font-bold">ArenaEV</span>
+        </div>
+
+        <!-- Navigation -->
+        <ul class="menu gap-1">
+          <li>
+            <%= link_to admin_root_path, class: "#{request.path == admin_root_path ? 'active' : ''}" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+              Dashboard
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to admin_vehicles_path, class: "#{controller_name == 'vehicles' ? 'active' : ''}" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Vehicles
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to admin_brands_path, class: "#{controller_name == 'brands' ? 'active' : ''}" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+              Brands
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to admin_body_types_path, class: "#{controller_name == 'body_types' ? 'active' : ''}" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              </svg>
+              Body Types
+            <% end %>
+          </li>
+
+          <li>
+            <%= link_to admin_users_path, class: "#{controller_name == 'users' ? 'active' : ''}" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              Users
+            <% end %>
+          </li>
+        </ul>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- Bottom Links -->
+        <ul class="menu gap-1">
+          <li>
+            <%= link_to root_path, target: "_blank" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              View Site
+            <% end %>
+          </li>
+
+          <li>
+            <%= button_to session_path, method: :delete, class: "text-left" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              Logout
+            <% end %>
+          </li>
+        </ul>
+
+        <!-- User Info -->
+        <div class="mt-auto pt-4">
+          <div class="flex items-center gap-3 rounded-lg bg-base-200 p-3">
+            <div class="avatar placeholder">
+              <div class="w-10 rounded-full bg-primary text-primary-content">
+                <span><%= current_user&.display_name&.first&.upcase || "A" %></span>
+              </div>
+            </div>
+            <div class="flex-1 truncate">
+              <p class="text-sm font-medium truncate"><%= current_user&.display_name %></p>
+              <p class="text-xs text-base-content/60 truncate"><%= current_user&.role&.humanize %></p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

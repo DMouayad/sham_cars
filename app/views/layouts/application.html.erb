@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="arena">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for(:title) || "ArenaEV" %></title>
+  <meta name="description" content="<%= content_for(:description) || "Discover and compare electric vehicles" %>">
+
+  <meta name="turbo-cache-control" content="no-preview">
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body class="min-h-screen flex flex-col bg-base-100">
+  <%= render "shared/navbar" %>
+
+  <% if flash[:notice] %>
+    <div class="container-app mt-4">
+      <div role="alert" class="alert alert-success">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span><%= flash[:notice] %></span>
+      </div>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="container-app mt-4">
+      <div role="alert" class="alert alert-error">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span><%= flash[:alert] %></span>
+      </div>
+    </div>
+  <% end %>
+
+  <main class="flex-1">
+    <%= yield %>
+  </main>
+
+  <%= render "shared/footer" %>
+
+  <%= render "shared/comparison_bar" if comparison_count > 0 %>
+</body>
+</html>
