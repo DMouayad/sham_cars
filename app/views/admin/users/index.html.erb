@@ -1,0 +1,83 @@
+<%# app/views/admin/users/index.html.erb %>
+
+<% content_for :title, "Users" %>
+
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-bold">Users</h1>
+</div>
+
+<div class="card bg-base-100 shadow">
+  <div class="overflow-x-auto">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Role</th>
+          <th>Verified</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td>
+              <div class="flex items-center gap-3">
+                <div class="avatar placeholder">
+                  <div class="w-10 rounded-full bg-primary text-primary-content">
+                    <span><%= user.display_name.first.upcase %></span>
+                  </div>
+                </div>
+                <div>
+                  <div class="font-medium"><%= user.display_name %></div>
+                  <div class="text-sm text-base-content/60"><%= user.email %></div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="badge <%= user.super_admin? ? 'badge-error' : user.admin? ? 'badge-warning' : 'badge-ghost' %>">
+                <%= user.role.humanize %>
+              </span>
+            </td>
+            <td>
+              <% if user.verified? %>
+                <span class="text-success">✓</span>
+              <% else %>
+                <span class="text-base-content/40">—</span>
+              <% end %>
+            </td>
+            <td class="text-sm text-base-content/60">
+              <%= user.created_at.strftime("%b %d, %Y") %>
+            </td>
+            <td>
+              <div class="flex gap-1">
+                <%= link_to edit_admin_user_path(user), class: "btn btn-ghost btn-xs" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                <% end %>
+
+                <% if user != current_user && current_user.super_admin? %>
+                  <%= button_to admin_user_path(user),
+                      method: :delete,
+                      class: "btn btn-ghost btn-xs text-error",
+                      data: { turbo_confirm: "Delete user #{user.email}?" } do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  <% end %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @users.empty? %>
+    <div class="p-8 text-center text-base-content/60">
+      No users found
+    </div>
+  <% end %>
+</div>

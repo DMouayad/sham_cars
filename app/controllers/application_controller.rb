@@ -6,18 +6,24 @@ class ApplicationController < ActionController::Base
 
   before_action :set_current_request_details
 
+  # authenticate: loads the session if it exists
+  before_action :authenticate
+  # require_authentication: redirects to login if there is no session
+  before_action :require_authentication
+
   helper_method :current_user, :signed_in?, :comparison_vehicle_slugs, :comparison_count
 
   private
 
-  # Authentication (from authentication-zero)
-  def authenticate
-     if (session_record = Session.find_by_id(cookies.signed[:session_token]))
-       Current.session = session_record
-     else
-       redirect_to new_session_path and return
-     end
-   end
+    def authenticate
+      if session_record = Session.find_by_id(cookies.signed[:session_token])
+        Current.session = session_record
+      end
+    end
+
+    def require_authentication
+      redirect_to sign_in_path unless Current.session
+    end
 
   def set_current_request_details
     Current.user_agent = request.user_agent

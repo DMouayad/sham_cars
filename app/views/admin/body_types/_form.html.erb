@@ -1,0 +1,50 @@
+<%# app/views/admin/body_types/_form.html.erb %>
+
+<%= form_with model: [:admin, body_type], class: "space-y-6 max-w-xl" do |f| %>
+  <% if body_type.errors.any? %>
+    <div class="alert alert-error">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <div>
+        <h3 class="font-bold">Please fix the following errors:</h3>
+        <ul class="list-disc list-inside text-sm">
+          <% body_type.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Body Type Information</h2>
+
+      <div class="space-y-4">
+        <div class="form-control">
+          <%= f.label :name, class: "label" %>
+          <%= f.text_field :name, class: "input input-bordered w-full", required: true, placeholder: "SUV" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :icon, "Icon (emoji)", class: "label" %>
+          <%= f.text_field :icon, class: "input input-bordered w-full", placeholder: "🚙" %>
+          <label class="label">
+            <span class="label-text-alt">Leave empty to use default icon</span>
+          </label>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :description, class: "label" %>
+          <%= f.text_area :description, class: "textarea textarea-bordered w-full h-20", placeholder: "Description..." %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-end gap-4">
+    <%= link_to "Cancel", admin_body_types_path, class: "btn btn-ghost" %>
+    <%= f.submit body_type.persisted? ? "Update Body Type" : "Create Body Type", class: "btn btn-primary" %>
+  </div>
+<% end %>

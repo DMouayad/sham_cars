@@ -1,0 +1,69 @@
+<%# app/views/admin/users/edit.html.erb %>
+
+<% content_for :title, "Edit User" %>
+
+<div class="mb-6">
+  <div class="text-sm breadcrumbs">
+    <ul>
+      <li><%= link_to "Users", admin_users_path %></li>
+      <li>Edit</li>
+    </ul>
+  </div>
+  <h1 class="text-2xl font-bold">Edit User</h1>
+</div>
+
+<%= form_with model: [:admin, @user], class: "space-y-6 max-w-xl" do |f| %>
+  <% if @user.errors.any? %>
+    <div class="alert alert-error">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <div>
+        <h3 class="font-bold">Please fix the following errors:</h3>
+        <ul class="list-disc list-inside text-sm">
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">User Information</h2>
+
+      <div class="space-y-4">
+        <div class="form-control">
+          <%= f.label :name, class: "label" %>
+          <%= f.text_field :name, class: "input input-bordered w-full", placeholder: "John Doe" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :email, class: "label" %>
+          <%= f.email_field :email, class: "input input-bordered w-full", required: true %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :role, class: "label" %>
+          <%= f.select :role,
+              User.roles.keys.map { |r| [r.humanize, r] },
+              {},
+              { class: "select select-bordered w-full" } %>
+        </div>
+
+        <div class="form-control">
+          <label class="label cursor-pointer justify-start gap-3">
+            <%= f.check_box :verified, class: "checkbox checkbox-primary" %>
+            <span class="label-text">Verified</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-end gap-4">
+    <%= link_to "Cancel", admin_users_path, class: "btn btn-ghost" %>
+    <%= f.submit "Update User", class: "btn btn-primary" %>
+  </div>
+<% end %>

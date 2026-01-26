@@ -13,8 +13,10 @@ Rails.application.routes.draw do
   resources :passwords, param: :token, only: %i[new create edit update]
 
   # Friendly aliases
-  get "sign_in", to: "sessions#new", as: :sign_in
-  get "sign_up", to: "registrations#new", as: :sign_up if defined?(RegistrationsController)
+  get  "sign_in", to: "sessions#new"
+  post "sign_in", to: "sessions#create"
+  get  "sign_up", to: "registrations#new"
+  post "sign_up", to: "registrations#create"
   get "password_reset" , to: "passwords#new" , as: :password_reset
 
   # ===================

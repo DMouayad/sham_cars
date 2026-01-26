@@ -1,0 +1,15 @@
+<%# app/views/admin/body_types/edit.html.erb %>
+
+<% content_for :title, "Edit #{@body_type.name}" %>
+
+<div class="mb-6">
+  <div class="text-sm breadcrumbs">
+    <ul>
+      <li><%= link_to "Body Types", admin_body_types_path %></li>
+      <li>Edit</li>
+    </ul>
+  </div>
+  <h1 class="text-2xl font-bold">Edit <%= @body_type.name %></h1>
+</div>
+
+<%= render "form", body_type: @body_type %>

@@ -1,0 +1,15 @@
+<%# app/views/admin/body_types/new.html.erb %>
+
+<% content_for :title, "New Body Type" %>
+
+<div class="mb-6">
+  <div class="text-sm breadcrumbs">
+    <ul>
+      <li><%= link_to "Body Types", admin_body_types_path %></li>
+      <li>New</li>
+    </ul>
+  </div>
+  <h1 class="text-2xl font-bold">New Body Type</h1>
+</div>
+
+<%= render "form", body_type: @body_type %>

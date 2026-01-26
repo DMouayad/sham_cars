@@ -1,0 +1,21 @@
+<%# app/views/admin/body_types/show.html.erb %>
+
+<% content_for :title, @body_type.name %>
+
+<div class="mb-6">
+  <div class="text-sm breadcrumbs">
+    <ul>
+      <li><%= link_to "Body Types", admin_body_types_path %></li>
+      <li><%= @body_type.name %></li>
+    </ul>
+  </div>
+  <h1 class="text-2xl font-bold flex items-center gap-2">
+    <span class="text-3xl"><%= @body_type.display_icon %></span>
+    <%= @body_type.name %>
+  </h1>
+</div>
+
+<div class="flex gap-4">
+  <%= link_to "Edit", edit_admin_body_type_path(@body_type), class: "btn btn-primary" %>
+  <%= link_to "Back", admin_body_types_path, class: "btn btn-ghost" %>
+</div>
