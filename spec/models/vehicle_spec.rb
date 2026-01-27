@@ -28,7 +28,7 @@
 #  reviews_count        :integer          default(0)
 #  seats                :integer
 #  slug                 :string           not null
-#  status               :integer          default(0), not null
+#  status               :integer          default("draft"), not null
 #  top_speed_kmh        :integer
 #  torque_nm            :integer
 #  weight_kg            :integer
