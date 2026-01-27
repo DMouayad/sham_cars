@@ -1,13 +1,16 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+  # Only seed admin in production
+  if Rails.env.production?
+    email = ENV.fetch("ADMIN_EMAIL")
+    password = ENV.fetch("ADMIN_PASSWORD")
+  else
+    email = "admin@example.com"
+    password = "password123456"
+  end
 
-# Create sample users for development
-if Rails.env.development?
-  admin = User.find_or_create_by!(email: "admin@example.com") do |user|
+  admin = User.find_or_create_by!(email: email) do |user|
     user.username = "admin"
-    user.password = "password123456"
-    user.password_confirmation = "password123456"
+    user.password = password
+    user.password_confirmation = password
     user.verified = true
     user.role = "admin"
   end
@@ -48,7 +51,6 @@ if Rails.env.development?
   puts "  - admin@example.com (username: admin, password: password123456) - with avatar"
   puts "  - user@example.com (username: user, password: password123456) - with avatar"
   puts "  - unverified@example.com (username: unverified, password: password123456)"
-
 
 # ===================
 # BODY TYPES
@@ -423,5 +425,3 @@ puts "   🚗 Body Types: #{BodyType.count}"
 puts "   ⚡ Vehicles: #{Vehicle.count}"
 puts "   🖼️  Vehicle Images: #{VehicleImage.count}"
 puts "=" * 50
-
-end
