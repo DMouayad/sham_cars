@@ -15,4 +15,39 @@
 #  index_body_types_on_slug  (slug) UNIQUE
 #
 class BodyType < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
+  # Associations
+  has_many :vehicles, dependent: :nullify
+
+  # Validations
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :slug, presence: true, uniqueness: true
+
+  # Scopes
+  scope :ordered, -> { order(:name) }
+
+  # Icon mapping
+  ICONS = {
+    "sedan" => "🚗",
+    "suv" => "🚙",
+    "hatchback" => "🚘",
+    "truck" => "🛻",
+    "van" => "🚐",
+    "coupe" => "🏎️",
+    "wagon" => "🚃",
+    "convertible" => "🏁",
+    "crossover" => "🚙",
+    "mpv" => "🚐"
+  }.freeze
+
+  # Methods
+  def display_icon
+    icon.presence || ICONS[slug] || "🚗"
+  end
+
+  def to_s
+    name
+  end
 end
