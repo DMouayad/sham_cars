@@ -1,0 +1,65 @@
+<% page_title "#{@brand.name} Electric Vehicles" %>
+
+<div class="section-padding">
+  <div class="container-app">
+    <!-- Brand Header -->
+    <div class="flex flex-col md:flex-row md:items-center gap-6 mb-8">
+      <% if @brand.logo.present? %>
+        <img src="<%= @brand.logo %>" alt="<%= @brand.name %>" class="h-20 w-auto object-contain">
+      <% else %>
+        <div class="text-6xl">🏭</div>
+      <% end %>
+
+      <div class="flex-1">
+        <h1 class="text-3xl md:text-4xl font-bold"><%= @brand.name %></h1>
+
+        <div class="flex flex-wrap items-center gap-4 mt-2 text-base-content/70">
+          <% if @brand.country.present? %>
+            <span class="flex items-center gap-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <%= @brand.country %>
+            </span>
+          <% end %>
+
+          <% if @brand.website.present? %>
+            <%= link_to @brand.website, target: "_blank", rel: "noopener", class: "flex items-center gap-1 link link-hover" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              Website
+            <% end %>
+          <% end %>
+        </div>
+
+        <% if @brand.description.present? %>
+          <p class="mt-4 text-base-content/80"><%= @brand.description %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Vehicles Section -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-xl font-semibold">
+        <%= pluralize(@pagy.count, "Vehicle") %>
+      </h2>
+    </div>
+
+    <% if @vehicles.any? %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+        <% @vehicles.each do |vehicle| %>
+          <%= render "components/vehicle_card", vehicle: vehicle %>
+        <% end %>
+      </div>
+
+      <%= render "components/pagination", pagy: @pagy %>
+    <% else %>
+      <%= render "components/empty_state",
+          icon: "🚗",
+          title: "No vehicles yet",
+          message: "This brand has no published vehicles" %>
+    <% end %>
+  </div>
+</div>

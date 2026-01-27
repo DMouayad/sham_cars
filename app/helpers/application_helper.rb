@@ -33,27 +33,26 @@ module ApplicationHelper
       "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
     end
   end
-
-  def git_revision
-    @git_revision ||= begin
-      # Try to get tag first, fallback to short SHA
-      tag = `git describe --tags --exact-match HEAD 2>/dev/null`.strip
-      tag.present? ? tag : `git rev-parse --short HEAD 2>/dev/null`.strip
+def page_title(title = nil)
+    if title.present?
+      content_for(:title) { title }
     end
   end
 
-  def git_has_uncommitted_changes?
-    @git_has_uncommitted_changes ||= begin
-      # Check both staged and unstaged changes
-      `git diff --quiet && git diff --cached --quiet 2>/dev/null`
-      $?.exitstatus != 0
-    end
+  def format_number(number)
+    return nil unless number
+    number_with_delimiter(number)
   end
 
-  def git_revision_url(revision = nil)
-    revision ||= git_revision
-    return nil if revision.blank?
+  def format_currency_value(amount, currency = "USD")
+    return "TBA" unless amount
 
-    "https://github.com/matrix9180/my-rails-app-template/tree/#{revision}"
+    unit = case currency
+           when "EUR" then "€"
+           when "GBP" then "£"
+           else "$"
+           end
+
+    number_to_currency(amount, precision: 0, unit: unit)
   end
 end

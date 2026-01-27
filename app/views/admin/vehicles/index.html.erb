@@ -1,0 +1,134 @@
+<% content_for :title, "Vehicles" %>
+
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-bold">Vehicles</h1>
+  <%= link_to new_admin_vehicle_path, class: "btn btn-primary gap-2" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+    </svg>
+    Add Vehicle
+  <% end %>
+</div>
+
+<!-- Filters -->
+<div class="card bg-base-100 shadow mb-6">
+  <div class="card-body p-4">
+    <%= search_form_for @q, url: admin_vehicles_path, method: :get, html: { class: "flex flex-wrap gap-4" } do |f| %>
+      <div class="form-control">
+        <%= f.search_field :name_cont,
+            placeholder: "Search name...",
+            class: "input input-bordered input-sm w-48" %>
+      </div>
+
+      <div class="form-control">
+        <%= f.collection_select :brand_id_eq,
+            Brand.ordered, :id, :name,
+            { include_blank: "All Brands" },
+            { class: "select select-bordered select-sm" } %>
+      </div>
+
+      <div class="form-control">
+        <%= f.select :published_eq,
+            options_for_select([["All Status", nil], ["Published", true], ["Draft", false]], params.dig(:q, :published_eq)),
+            {},
+            { class: "select select-bordered select-sm" } %>
+      </div>
+
+      <div class="flex gap-2">
+        <%= f.submit "Filter", class: "btn btn-sm btn-primary" %>
+        <%= link_to "Clear", admin_vehicles_path, class: "btn btn-sm btn-ghost" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="card bg-base-100 shadow">
+  <div class="overflow-x-auto">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Vehicle</th>
+          <th>Brand</th>
+          <th>Year</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @vehicles.each do |vehicle| %>
+          <tr>
+            <td>
+              <div class="flex items-center gap-3">
+                <div class="avatar">
+                  <div class="w-12 h-12 rounded-lg bg-base-200">
+                    <img src="<%= vehicle.primary_image_url %>" alt="<%= vehicle.name %>">
+                  </div>
+                </div>
+                <div>
+                  <div class="font-medium"><%= vehicle.name %></div>
+                  <div class="text-sm text-base-content/60"><%= vehicle.body_type.name %></div>
+                </div>
+              </div>
+            </td>
+            <td><%= vehicle.brand.name %></td>
+            <td><%= vehicle.year || "—" %></td>
+            <td><%= vehicle.price_display %></td>
+            <td>
+              <div class="flex flex-wrap gap-1">
+                <% if vehicle.published? %>
+                  <span class="badge badge-success badge-sm">Published</span>
+                <% else %>
+                  <span class="badge badge-ghost badge-sm">Draft</span>
+                <% end %>
+                <% if vehicle.featured? %>
+                  <span class="badge badge-secondary badge-sm">Featured</span>
+                <% end %>
+              </div>
+            </td>
+            <td>
+              <div class="flex gap-1">
+                <%= link_to admin_vehicle_path(vehicle), class: "btn btn-ghost btn-xs" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                <% end %>
+
+                <%= link_to edit_admin_vehicle_path(vehicle), class: "btn btn-ghost btn-xs" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                <% end %>
+
+                <% if vehicle.published? %>
+                  <%= button_to unpublish_admin_vehicle_path(vehicle), method: :patch, class: "btn btn-ghost btn-xs", title: "Unpublish" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                    </svg>
+                  <% end %>
+                <% else %>
+                  <%= button_to publish_admin_vehicle_path(vehicle), method: :patch, class: "btn btn-ghost btn-xs text-success", title: "Publish" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                  <% end %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @vehicles.empty? %>
+    <div class="p-8 text-center text-base-content/60">
+      No vehicles found
+    </div>
+  <% end %>
+</div>
+
+<%= render "components/pagination", pagy: @pagy %>

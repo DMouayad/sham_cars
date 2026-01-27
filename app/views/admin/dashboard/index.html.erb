@@ -1,0 +1,93 @@
+<% content_for :title, "Dashboard" %>
+
+<h1 class="text-2xl font-bold mb-6">Dashboard</h1>
+
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-figure text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    </div>
+    <div class="stat-title">Total Vehicles</div>
+    <div class="stat-value text-primary"><%= @stats[:vehicles_count] %></div>
+    <div class="stat-desc"><%= @stats[:published_count] %> published</div>
+  </div>
+
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-figure text-secondary">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+      </svg>
+    </div>
+    <div class="stat-title">Brands</div>
+    <div class="stat-value text-secondary"><%= @stats[:brands_count] %></div>
+  </div>
+
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-figure text-accent">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+      </svg>
+    </div>
+    <div class="stat-title">Body Types</div>
+    <div class="stat-value text-accent"><%= @stats[:body_types_count] %></div>
+  </div>
+
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-figure text-info">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+    </div>
+    <div class="stat-title">Users</div>
+    <div class="stat-value text-info"><%= @stats[:users_count] %></div>
+  </div>
+</div>
+
+<!-- Recent Vehicles -->
+<div class="card bg-base-100 shadow">
+  <div class="card-body">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="card-title">Recent Vehicles</h2>
+      <%= link_to "View All", admin_vehicles_path, class: "btn btn-ghost btn-sm" %>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Vehicle</th>
+            <th>Brand</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recent_vehicles.each do |vehicle| %>
+            <tr>
+              <td class="font-medium"><%= vehicle.name %></td>
+              <td><%= vehicle.brand.name %></td>
+              <td>
+                <% if vehicle.published? %>
+                  <span class="badge badge-success badge-sm">Published</span>
+                <% else %>
+                  <span class="badge badge-ghost badge-sm">Draft</span>
+                <% end %>
+                <% if vehicle.featured? %>
+                  <span class="badge badge-secondary badge-sm">Featured</span>
+                <% end %>
+              </td>
+              <td class="text-sm text-base-content/60"><%= time_ago_in_words(vehicle.created_at) %> ago</td>
+              <td>
+                <%= link_to "Edit", edit_admin_vehicle_path(vehicle), class: "btn btn-ghost btn-xs" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="fixed bottom-0 left-0 right-0 bg-base-100 border-t border-base-300 shadow-lg z-50 p-3 md:p-4">
+  <div class="container-app flex items-center justify-between gap-4">
+    <div class="flex items-center gap-2 flex-1 min-w-0">
+      <span class="badge badge-primary"><%= comparison_count %></span>
+      <span class="text-sm truncate hidden sm:inline">vehicles to compare</span>
+      <span class="text-sm truncate sm:hidden">selected</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <%= link_to comparison_path, class: "btn btn-primary btn-sm" do %>
+        Compare Now
+      <% end %>
+
+      <%= button_to clear_comparison_path,
+          method: :delete,
+          class: "btn btn-ghost btn-sm",
+          data: { turbo_confirm: "Clear all vehicles from comparison?" } do %>
+        Clear
+      <% end %>
+    </div>
+  </div>
+</div>

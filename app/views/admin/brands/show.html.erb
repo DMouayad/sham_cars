@@ -1,0 +1,108 @@
+<%# app/views/admin/brands/show.html.erb %>
+
+<% content_for :title, @brand.name %>
+
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <div class="text-sm breadcrumbs">
+      <ul>
+        <li><%= link_to "Brands", admin_brands_path %></li>
+        <li><%= @brand.name %></li>
+      </ul>
+    </div>
+    <h1 class="text-2xl font-bold flex items-center gap-3">
+      <% if @brand.logo.present? %>
+        <img src="<%= @brand.logo %>" alt="<%= @brand.name %>" class="h-8">
+      <% end %>
+      <%= @brand.name %>
+    </h1>
+  </div>
+
+  <div class="flex gap-2">
+    <%= link_to edit_admin_brand_path(@brand), class: "btn btn-primary gap-2" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+      </svg>
+      Edit
+    <% end %>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Info -->
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Information</h2>
+
+      <div class="space-y-3 text-sm">
+        <div class="flex justify-between">
+          <span class="text-base-content/60">Country</span>
+          <span class="font-medium"><%= @brand.country || "—" %></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-base-content/60">Website</span>
+          <% if @brand.website.present? %>
+            <%= link_to @brand.website, @brand.website, target: "_blank", class: "link link-primary truncate max-w-[150px]" %>
+          <% else %>
+            <span>—</span>
+          <% end %>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-base-content/60">Slug</span>
+          <span class="font-medium"><%= @brand.slug %></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-base-content/60">Vehicles</span>
+          <span class="badge badge-ghost"><%= @vehicles.count %></span>
+        </div>
+      </div>
+
+      <% if @brand.description.present? %>
+        <div class="divider"></div>
+        <p class="text-sm text-base-content/80"><%= @brand.description %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Vehicles -->
+  <div class="lg:col-span-2 card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Vehicles</h2>
+
+      <% if @vehicles.any? %>
+        <div class="overflow-x-auto">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Year</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @vehicles.each do |vehicle| %>
+                <tr>
+                  <td class="font-medium"><%= vehicle.name %></td>
+                  <td><%= vehicle.year || "—" %></td>
+                  <td>
+                    <% if vehicle.published? %>
+                      <span class="badge badge-success badge-sm">Published</span>
+                    <% else %>
+                      <span class="badge badge-ghost badge-sm">Draft</span>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to "Edit", edit_admin_vehicle_path(vehicle), class: "btn btn-ghost btn-xs" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p class="text-base-content/60 text-center py-4">No vehicles for this brand</p>
+      <% end %>
+    </div>
+  </div>
+</div>

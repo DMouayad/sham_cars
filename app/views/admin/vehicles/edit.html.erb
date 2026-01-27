@@ -1,0 +1,16 @@
+<%# app/views/admin/vehicles/edit.html.erb %>
+
+<% content_for :title, "Edit #{@vehicle.name}" %>
+
+<div class="mb-6">
+  <div class="text-sm breadcrumbs">
+    <ul>
+      <li><%= link_to "Vehicles", admin_vehicles_path %></li>
+      <li><%= link_to @vehicle.name, admin_vehicle_path(@vehicle) %></li>
+      <li>Edit</li>
+    </ul>
+  </div>
+  <h1 class="text-2xl font-bold">Edit <%= @vehicle.name %></h1>
+</div>
+
+<%= render "form", vehicle: @vehicle %>

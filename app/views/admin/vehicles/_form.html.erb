@@ -1,0 +1,241 @@
+<%# app/views/admin/vehicles/_form.html.erb %>
+
+<%= form_with model: [:admin, vehicle], class: "space-y-6" do |f| %>
+  <% if vehicle.errors.any? %>
+    <div class="alert alert-error">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <div>
+        <h3 class="font-bold">Please fix the following errors:</h3>
+        <ul class="list-disc list-inside text-sm">
+          <% vehicle.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Basic Info -->
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Basic Information</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="form-control">
+          <%= f.label :brand_id, "Brand", class: "label" %>
+          <%= f.collection_select :brand_id, @brands, :id, :name,
+              { prompt: "Select Brand" },
+              { class: "select select-bordered w-full", required: true } %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :body_type_id, "Body Type", class: "label" %>
+          <%= f.collection_select :body_type_id, @body_types, :id, :name,
+              { prompt: "Select Body Type" },
+              { class: "select select-bordered w-full", required: true } %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :name, class: "label" %>
+          <%= f.text_field :name, class: "input input-bordered w-full", required: true, placeholder: "Model 3" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :year, class: "label" %>
+          <%= f.number_field :year, class: "input input-bordered w-full", min: 2010, max: Time.current.year + 2, placeholder: "2024" %>
+        </div>
+
+        <div class="form-control md:col-span-2">
+          <%= f.label :description, class: "label" %>
+          <%= f.text_area :description, class: "textarea textarea-bordered w-full h-24", placeholder: "Vehicle description..." %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Pricing</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="form-control">
+          <%= f.label :price_from, "Price From", class: "label" %>
+          <%= f.number_field :price_from, class: "input input-bordered w-full", min: 0, step: 100, placeholder: "50000" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :price_to, "Price To", class: "label" %>
+          <%= f.number_field :price_to, class: "input input-bordered w-full", min: 0, step: 100, placeholder: "60000" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :currency, class: "label" %>
+          <%= f.select :currency, [["USD ($)", "USD"], ["EUR (€)", "EUR"], ["GBP (£)", "GBP"]], {}, { class: "select select-bordered w-full" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Battery & Range -->
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Battery & Range</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="form-control">
+          <%= f.label :battery_capacity_kwh, "Battery (kWh)", class: "label" %>
+          <%= f.number_field :battery_capacity_kwh, class: "input input-bordered w-full", min: 0, step: 0.1, placeholder: "75.0" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :range_wltp_km, "Range WLTP (km)", class: "label" %>
+          <%= f.number_field :range_wltp_km, class: "input input-bordered w-full", min: 0, placeholder: "500" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :range_epa_miles, "Range EPA (miles)", class: "label" %>
+          <%= f.number_field :range_epa_miles, class: "input input-bordered w-full", min: 0, placeholder: "310" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :efficiency_wh_km, "Efficiency (Wh/km)", class: "label" %>
+          <%= f.number_field :efficiency_wh_km, class: "input input-bordered w-full", min: 0, placeholder: "150" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performance -->
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Performance</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="form-control">
+          <%= f.label :acceleration_0_100, "0-100 km/h (s)", class: "label" %>
+          <%= f.number_field :acceleration_0_100, class: "input input-bordered w-full", min: 0, step: 0.1, placeholder: "3.5" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :top_speed_kmh, "Top Speed (km/h)", class: "label" %>
+          <%= f.number_field :top_speed_kmh, class: "input input-bordered w-full", min: 0, placeholder: "250" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :horsepower, "Power (hp)", class: "label" %>
+          <%= f.number_field :horsepower, class: "input input-bordered w-full", min: 0, placeholder: "450" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :torque_nm, "Torque (Nm)", class: "label" %>
+          <%= f.number_field :torque_nm, class: "input input-bordered w-full", min: 0, placeholder: "650" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :drive_type, "Drive Type", class: "label" %>
+          <%= f.select :drive_type, [["AWD", "AWD"], ["RWD", "RWD"], ["FWD", "FWD"]], { include_blank: "Select" }, { class: "select select-bordered w-full" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charging -->
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Charging</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="form-control">
+          <%= f.label :fast_charge_kw, "Fast Charge (kW)", class: "label" %>
+          <%= f.number_field :fast_charge_kw, class: "input input-bordered w-full", min: 0, placeholder: "250" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :fast_charge_time_min, "Charge Time (min)", class: "label" %>
+          <%= f.number_field :fast_charge_time_min, class: "input input-bordered w-full", min: 0, placeholder: "30" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :home_charge_kw, "Home Charge (kW)", class: "label" %>
+          <%= f.number_field :home_charge_kw, class: "input input-bordered w-full", min: 0, step: 0.1, placeholder: "11.0" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :charge_port, "Charge Port", class: "label" %>
+          <%= f.select :charge_port, [["CCS", "CCS"], ["CHAdeMO", "CHAdeMO"], ["Tesla", "Tesla"], ["Type 2", "Type 2"]], { include_blank: "Select" }, { class: "select select-bordered w-full" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dimensions -->
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Dimensions</h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="form-control">
+          <%= f.label :seats, class: "label" %>
+          <%= f.number_field :seats, class: "input input-bordered w-full", min: 1, max: 9, placeholder: "5" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :cargo_volume_liters, "Cargo (L)", class: "label" %>
+          <%= f.number_field :cargo_volume_liters, class: "input input-bordered w-full", min: 0, placeholder: "500" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :length_mm, "Length (mm)", class: "label" %>
+          <%= f.number_field :length_mm, class: "input input-bordered w-full", min: 0, placeholder: "4700" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :width_mm, "Width (mm)", class: "label" %>
+          <%= f.number_field :width_mm, class: "input input-bordered w-full", min: 0, placeholder: "1850" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :height_mm, "Height (mm)", class: "label" %>
+          <%= f.number_field :height_mm, class: "input input-bordered w-full", min: 0, placeholder: "1450" %>
+        </div>
+
+        <div class="form-control">
+          <%= f.label :weight_kg, "Weight (kg)", class: "label" %>
+          <%= f.number_field :weight_kg, class: "input input-bordered w-full", min: 0, placeholder: "2000" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Publishing -->
+  <div class="card bg-base-100 shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">Publishing</h2>
+
+      <div class="flex flex-wrap gap-6">
+        <div class="form-control">
+          <label class="label cursor-pointer gap-3">
+            <%= f.check_box :published, class: "checkbox checkbox-primary" %>
+            <span class="label-text">Published</span>
+          </label>
+        </div>
+
+        <div class="form-control">
+          <label class="label cursor-pointer gap-3">
+            <%= f.check_box :featured, class: "checkbox checkbox-secondary" %>
+            <span class="label-text">Featured</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex items-center justify-end gap-4">
+    <%= link_to "Cancel", admin_vehicles_path, class: "btn btn-ghost" %>
+    <%= f.submit vehicle.persisted? ? "Update Vehicle" : "Create Vehicle", class: "btn btn-primary" %>
+  </div>
+<% end %>

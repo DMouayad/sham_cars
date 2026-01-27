@@ -1,0 +1,64 @@
+<% page_title "Electric Vehicles" %>
+
+<div class="section-padding">
+  <div class="container-app">
+    <%= render "components/page_header",
+        title: "Electric Vehicles",
+        subtitle: "Browse and compare #{@pagy.count} electric vehicles" %>
+
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- Filters Sidebar -->
+      <aside class="w-full lg:w-64 shrink-0">
+        <%= render "filters" %>
+      </aside>
+
+      <!-- Results -->
+      <div class="flex-1">
+        <!-- Sort & View Options -->
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <p class="text-sm text-base-content/70">
+            Showing <%= @pagy.from %>-<%= @pagy.to %> of <%= @pagy.count %> vehicles
+          </p>
+
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-base-content/70">Sort:</span>
+            <%= form_with url: vehicles_path, method: :get, data: { turbo_frame: "_top", controller: "auto-submit" } do |f| %>
+              <%= f.select :sort,
+                  options_for_select([
+                    ["Newest", "newest"],
+                    ["Price: Low to High", "price_asc"],
+                    ["Price: High to Low", "price_desc"],
+                    ["Range: High to Low", "range"]
+                  ], params[:sort]),
+                  {},
+                  { class: "select select-bordered select-sm", onchange: "this.form.requestSubmit()" } %>
+
+              <%# Preserve existing filters %>
+              <% if params[:q].present? %>
+                <% params[:q].each do |key, value| %>
+                  <%= hidden_field_tag "q[#{key}]", value %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Vehicle Grid -->
+        <% if @vehicles.any? %>
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
+            <% @vehicles.each do |vehicle| %>
+              <%= render "components/vehicle_card", vehicle: vehicle %>
+            <% end %>
+          </div>
+
+          <%= render "components/pagination", pagy: @pagy %>
+        <% else %>
+          <%= render "components/empty_state",
+              icon: "🔍",
+              title: "No vehicles found",
+              message: "Try adjusting your filters or search criteria" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

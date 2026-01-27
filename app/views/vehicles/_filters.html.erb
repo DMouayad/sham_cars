@@ -1,0 +1,100 @@
+
+<div class="card bg-base-100 shadow-sm">
+  <div class="card-body p-4">
+    <h3 class="font-semibold mb-4">Filters</h3>
+
+    <%= search_form_for @q, url: vehicles_path, method: :get, html: { data: { turbo_frame: "_top" } } do |f| %>
+
+      <!-- Search -->
+      <div class="form-control mb-4">
+        <%= f.label :name_cont, "Search", class: "label label-text" %>
+        <%= f.search_field :name_cont,
+            class: "input input-bordered input-sm w-full",
+            placeholder: "Vehicle name..." %>
+      </div>
+
+      <!-- Brand -->
+      <div class="form-control mb-4">
+        <%= f.label :brand_id_eq, "Brand", class: "label label-text" %>
+        <%= f.collection_select :brand_id_eq,
+            @brands, :id, :name,
+            { include_blank: "All Brands" },
+            { class: "select select-bordered select-sm w-full" } %>
+      </div>
+
+      <!-- Body Type -->
+      <div class="form-control mb-4">
+        <%= f.label :body_type_id_eq, "Body Type", class: "label label-text" %>
+        <%= f.collection_select :body_type_id_eq,
+            @body_types, :id, :name,
+            { include_blank: "All Types" },
+            { class: "select select-bordered select-sm w-full" } %>
+      </div>
+
+      <!-- Price Range -->
+      <div class="form-control mb-4">
+        <%= f.label :price_from_gteq, "Min Price", class: "label label-text" %>
+        <%= f.select :price_from_gteq,
+            options_for_select([
+              ["Any", nil],
+              ["$25,000+", 25000],
+              ["$50,000+", 50000],
+              ["$75,000+", 75000],
+              ["$100,000+", 100000]
+            ], params.dig(:q, :price_from_gteq)),
+            {},
+            { class: "select select-bordered select-sm w-full" } %>
+      </div>
+
+      <div class="form-control mb-4">
+        <%= f.label :price_from_lteq, "Max Price", class: "label label-text" %>
+        <%= f.select :price_from_lteq,
+            options_for_select([
+              ["Any", nil],
+              ["Under $50,000", 50000],
+              ["Under $75,000", 75000],
+              ["Under $100,000", 100000],
+              ["Under $150,000", 150000]
+            ], params.dig(:q, :price_from_lteq)),
+            {},
+            { class: "select select-bordered select-sm w-full" } %>
+      </div>
+
+      <!-- Range -->
+      <div class="form-control mb-4">
+        <%= f.label :range_wltp_km_gteq, "Min Range (km)", class: "label label-text" %>
+        <%= f.select :range_wltp_km_gteq,
+            options_for_select([
+              ["Any", nil],
+              ["300+ km", 300],
+              ["400+ km", 400],
+              ["500+ km", 500],
+              ["600+ km", 600]
+            ], params.dig(:q, :range_wltp_km_gteq)),
+            {},
+            { class: "select select-bordered select-sm w-full" } %>
+      </div>
+
+      <!-- Seats -->
+      <div class="form-control mb-4">
+        <%= f.label :seats_eq, "Seats", class: "label label-text" %>
+        <%= f.select :seats_eq,
+            options_for_select([
+              ["Any", nil],
+              ["4 seats", 4],
+              ["5 seats", 5],
+              ["7 seats", 7]
+            ], params.dig(:q, :seats_eq)),
+            {},
+            { class: "select select-bordered select-sm w-full" } %>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex gap-2 mt-6">
+        <%= f.submit "Apply Filters", class: "btn btn-primary btn-sm flex-1" %>
+        <%= link_to "Clear", vehicles_path, class: "btn btn-ghost btn-sm" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

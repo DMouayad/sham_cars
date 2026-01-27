@@ -19,3 +19,53 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+@layer components {
+    .container-app {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+
+    .section-padding {
+        @apply py-8 md:py-12 lg:py-16;
+    }
+     /* Vehicle card hover effect */
+  .vehicle-card {
+    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+  }
+  
+  /* Spec badge styling */
+  .spec-badge {
+    @apply inline-flex items-center gap-1 px-2 py-1 bg-base-200 rounded-lg text-sm;
+  }
+}
+
+/* Pagy series_nav styling */
+.pagy a,
+.pagy span {
+    @apply join-item btn btn-sm;
+}
+
+.pagy a:hover {
+    @apply btn-primary;
+}
+
+.pagy a.current,
+.pagy span.current {
+    @apply btn-primary;
+}
+
+.pagy span.gap {
+    @apply btn-disabled;
+}
+
+.pagy a[aria-disabled="true"] {
+    @apply btn-disabled pointer-events-none;
+}

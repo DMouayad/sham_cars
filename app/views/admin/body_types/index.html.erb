@@ -1,0 +1,70 @@
+<%# app/views/admin/body_types/index.html.erb %>
+
+<% content_for :title, "Body Types" %>
+
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-2xl font-bold">Body Types</h1>
+  <%= link_to new_admin_body_type_path, class: "btn btn-primary gap-2" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+    </svg>
+    Add Body Type
+  <% end %>
+</div>
+
+<div class="card bg-base-100 shadow">
+  <div class="overflow-x-auto">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Icon</th>
+          <th>Vehicles</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @body_types.each do |body_type| %>
+          <tr>
+            <td>
+              <div class="font-medium"><%= body_type.name %></div>
+              <div class="text-sm text-base-content/60"><%= body_type.slug %></div>
+            </td>
+            <td>
+              <span class="text-2xl"><%= body_type.display_icon %></span>
+            </td>
+            <td>
+              <span class="badge badge-ghost"><%= body_type.vehicles.count %></span>
+            </td>
+            <td>
+              <div class="flex gap-1">
+                <%= link_to edit_admin_body_type_path(body_type), class: "btn btn-ghost btn-xs" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                <% end %>
+
+                <% if body_type.vehicles.empty? %>
+                  <%= button_to admin_body_type_path(body_type),
+                      method: :delete,
+                      class: "btn btn-ghost btn-xs text-error",
+                      data: { turbo_confirm: "Delete #{body_type.name}?" } do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  <% end %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @body_types.empty? %>
+    <div class="p-8 text-center text-base-content/60">
+      No body types found
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,8 @@
+<%# Usage: render "vehicles/spec_row", label: "Power", value: 500, suffix: " hp" %>
+
+<% if local_assigns[:value].present? %>
+  <div class="flex justify-between py-2">
+    <span class="text-base-content/70"><%= local_assigns[:label] %></span>
+    <span class="font-medium"><%= value %><%= local_assigns[:suffix] %></span>
+  </div>
+<% end %>

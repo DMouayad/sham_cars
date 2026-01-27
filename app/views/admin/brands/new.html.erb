@@ -1,0 +1,15 @@
+<%# app/views/admin/brands/new.html.erb %>
+
+<% content_for :title, "New Brand" %>
+
+<div class="mb-6">
+  <div class="text-sm breadcrumbs">
+    <ul>
+      <li><%= link_to "Brands", admin_brands_path %></li>
+      <li>New</li>
+    </ul>
+  </div>
+  <h1 class="text-2xl font-bold">New Brand</h1>
+</div>
+
+<%= render "form", brand: @brand %>

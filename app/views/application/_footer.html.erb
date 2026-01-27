@@ -1,19 +1,17 @@
-<footer class="footer footer-center bg-base-200 text-base-content p-4 mt-auto">
-  <div>
-    <p><%= t("layout.footer.copyright_text", year: Date.current.year, rights: t("application.copyright")).html_safe %></p>
-    <% if git_revision.present? %>
-      <p class="text-sm opacity-70">
-        <%= link_to git_revision_url, target: "_blank", rel: "noopener noreferrer", class: "link link-hover" do %>
-          <%= t("layout.footer.revision") %>: <%= git_revision %>
-        <% end %>
-        <% if git_has_uncommitted_changes? %>
-          <span class="ml-2 text-warning" title="<%= t("layout.footer.uncommitted_changes_tooltip") %>">
-            <%= t("layout.footer.uncommitted_changes") %>
-          </span>
-        <% end %>
-      </p>
-    <% end %>
-  </div>
+<footer class="footer footer-center bg-base-200 text-base-content p-10 mt-auto">
+  <aside>
+    <div class="text-4xl mb-2">⚡</div>
+    <p class="font-bold">ArenaEV</p>
+    <p class="text-sm text-base-content/70">Discover and compare electric vehicles</p>
+    <p class="text-xs text-base-content/50 mt-4">© <%= Date.current.year %> ArenaEV. All rights reserved.</p>
+  </aside>
+
+  <nav>
+    <div class="flex gap-4">
+      <%= link_to "Vehicles", vehicles_path, class: "link link-hover" %>
+      <%= link_to "Brands", brands_path, class: "link link-hover" %>
+      <%= link_to "Compare", comparison_path, class: "link link-hover" %>
+      <%= link_to "About", about_path, class: "link link-hover" %>
+    </div>
+  </nav>
 </footer>
-
-

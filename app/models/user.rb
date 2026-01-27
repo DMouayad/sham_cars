@@ -120,4 +120,8 @@ class User < ApplicationRecord
   def to_param
     username
   end
+
+  def display_name
+    username.presence || email.split("@").first
+  end
 end

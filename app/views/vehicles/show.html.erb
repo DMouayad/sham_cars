@@ -1,0 +1,186 @@
+<% page_title @vehicle.full_name %>
+
+<div class="section-padding">
+  <div class="container-app">
+    <!-- Breadcrumb -->
+    <div class="text-sm breadcrumbs mb-6">
+      <ul>
+        <li><%= link_to "Vehicles", vehicles_path %></li>
+        <li><%= link_to @vehicle.brand.name, brand_path(@vehicle.brand.slug) %></li>
+        <li><%= @vehicle.name %></li>
+      </ul>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Image Gallery -->
+      <div>
+        <figure class="aspect-[4/3] bg-base-200 rounded-xl overflow-hidden">
+          <img
+            src="<%= @vehicle.primary_image_url %>"
+            alt="<%= @vehicle.full_name %>"
+            class="w-full h-full object-cover"
+>
+        </figure>
+
+        <% if @vehicle.images.count > 1 %>
+          <div class="flex gap-2 mt-4 overflow-x-auto pb-2">
+            <% @vehicle.images.ordered.each do |image| %>
+              <div class="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-base-200">
+                <img src="<%= image.url %>" alt="<%= image.alt_text %>" class="w-full h-full object-cover">
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Details -->
+      <div>
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-sm text-base-content/60 uppercase tracking-wide"><%= @vehicle.brand.name %></p>
+            <h1 class="text-3xl md:text-4xl font-bold"><%= @vehicle.name %></h1>
+            <% if @vehicle.year %>
+              <p class="text-base-content/70 mt-1"><%= @vehicle.year %></p>
+            <% end %>
+          </div>
+
+          <% if @vehicle.featured? %>
+            <span class="badge badge-secondary">Featured</span>
+          <% end %>
+        </div>
+
+        <!-- Price -->
+        <div class="mt-6 p-4 bg-primary/10 rounded-xl">
+          <p class="text-sm text-base-content/70">Starting from</p>
+          <p class="text-3xl font-bold text-primary"><%= @vehicle.price_display %></p>
+        </div>
+
+        <!-- Quick Specs -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+          <% @vehicle.specs_summary.each do |spec| %>
+            <div class="text-center p-3 bg-base-200 rounded-lg">
+              <span class="text-2xl"><%= spec[:icon] %></span>
+              <p class="text-lg font-semibold mt-1"><%= spec[:value] %></p>
+              <p class="text-xs text-base-content/60"><%= spec[:label] %></p>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Compare Button -->
+        <div class="mt-6">
+          <% if comparison_vehicle_slugs.include?(@vehicle.slug) %>
+            <%= button_to remove_comparison_path(@vehicle.slug),
+                method: :delete,
+                class: "btn btn-outline btn-block gap-2" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Added to Comparison
+            <% end %>
+          <% else %>
+            <%= button_to add_comparison_path(@vehicle.slug),
+                method: :post,
+                class: "btn btn-primary btn-block gap-2" do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              Add to Comparison
+            <% end %>
+          <% end %>
+        </div>
+
+        <!-- Description -->
+        <% if @vehicle.description.present? %>
+          <div class="mt-6">
+            <h2 class="font-semibold mb-2">About</h2>
+            <p class="text-base-content/80"><%= @vehicle.description %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Full Specifications -->
+    <div class="mt-12">
+      <h2 class="text-2xl font-bold mb-6">Specifications</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Performance -->
+        <div class="card bg-base-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title text-lg">Performance</h3>
+            <div class="divide-y divide-base-200">
+              <%= render "vehicles/spec_row", label: "0-100 km/h", value: @vehicle.acceleration_display %>
+              <%= render "vehicles/spec_row", label: "Top Speed", value: @vehicle.top_speed_kmh, suffix: " km/h" %>
+              <%= render "vehicles/spec_row", label: "Power", value: @vehicle.horsepower, suffix: " hp" %>
+              <%= render "vehicles/spec_row", label: "Torque", value: @vehicle.torque_nm, suffix: " Nm" %>
+              <%= render "vehicles/spec_row", label: "Drive", value: @vehicle.drive_type %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Battery & Range -->
+        <div class="card bg-base-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title text-lg">Battery & Range</h3>
+            <div class="divide-y divide-base-200">
+              <%= render "vehicles/spec_row", label: "Battery", value: @vehicle.battery_display %>
+              <%= render "vehicles/spec_row", label: "Range (WLTP)", value: @vehicle.range_wltp_km, suffix: " km" %>
+              <%= render "vehicles/spec_row", label: "Range (EPA)", value: @vehicle.range_epa_miles, suffix: " mi" %>
+              <%= render "vehicles/spec_row", label: "Efficiency", value: @vehicle.efficiency_wh_km, suffix: " Wh/km" %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charging -->
+        <div class="card bg-base-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title text-lg">Charging</h3>
+            <div class="divide-y divide-base-200">
+              <%= render "vehicles/spec_row", label: "Fast Charge", value: @vehicle.fast_charge_display %>
+              <%= render "vehicles/spec_row", label: "Fast Charge Time", value: @vehicle.fast_charge_time_min, suffix: " min" %>
+              <%= render "vehicles/spec_row", label: "Home Charge", value: @vehicle.home_charge_kw, suffix: " kW" %>
+              <%= render "vehicles/spec_row", label: "Charge Port", value: @vehicle.charge_port %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dimensions -->
+        <div class="card bg-base-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title text-lg">Dimensions</h3>
+            <div class="divide-y divide-base-200">
+              <%= render "vehicles/spec_row", label: "Length", value: @vehicle.length_mm, suffix: " mm" %>
+              <%= render "vehicles/spec_row", label: "Width", value: @vehicle.width_mm, suffix: " mm" %>
+              <%= render "vehicles/spec_row", label: "Height", value: @vehicle.height_mm, suffix: " mm" %>
+              <%= render "vehicles/spec_row", label: "Wheelbase", value: @vehicle.wheelbase_mm, suffix: " mm" %>
+              <%= render "vehicles/spec_row", label: "Weight", value: @vehicle.weight_kg, suffix: " kg" %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interior -->
+        <div class="card bg-base-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title text-lg">Interior</h3>
+            <div class="divide-y divide-base-200">
+              <%= render "vehicles/spec_row", label: "Seats", value: @vehicle.seats %>
+              <%= render "vehicles/spec_row", label: "Cargo Volume", value: @vehicle.cargo_volume_liters, suffix: " L" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Vehicles -->
+    <% if @related_vehicles.any? %>
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-6">Related Vehicles</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <% @related_vehicles.each do |vehicle| %>
+            <%= render "components/vehicle_card", vehicle: vehicle %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
