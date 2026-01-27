@@ -39,6 +39,7 @@ en:
       recovery_codes: "Recovery Codes"
       devices_sessions: "Devices & Sessions"
       activity_log: "Activity Log"
+      hero_description: "Compare specs, prices, and features of the latest electric cars from top manufacturers."
 
   registrations:
     new:

@@ -39,7 +39,6 @@ ar:
       recovery_codes: "رموز الاسترداد"
       devices_sessions: "الأجهزة والجلسات"
       activity_log: "سجل النشاط"
-      # New keys from home/index.html.erb
       title: "شام كارز - اكتشف السيارات الكهربائية"
       hero_title_part1: "اكتشف سيارتك القادمة"
       hero_title_part2: "الكهربائية"

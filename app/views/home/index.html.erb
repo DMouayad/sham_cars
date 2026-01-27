@@ -1,4 +1,4 @@
-<% content_for :title, "ArenaEV - Discover Electric Vehicles" %>
+<% content_for :title, t("home.index.title") %>
 
 <!-- Hero Section -->
 <section class="hero min-h-[60vh] bg-linear-to-br from-primary/10 to-secondary/10">
@@ -9,7 +9,7 @@
         <span class="text-primary">Electric Vehicle</span>
       </h1>
       <p class="py-6 text-lg text-base-content/70">
-        Compare specs, prices, and features of the latest electric cars from top manufacturers.
+        <%t("home.index.hero_description")%>
       </p>
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
         <%= link_to "Browse Vehicles", vehicles_path, class: "btn btn-primary btn-lg" %>

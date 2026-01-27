@@ -44,6 +44,6 @@ module MyRailsAppTemplate
     config.generators.system_tests = nil
 
     config.i18n.default_locale = :en
-    I18n.available_locales = ![ :en, :ar ]
+    I18n.available_locales = [ :en, :ar ]
   end
 end
