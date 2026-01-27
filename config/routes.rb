@@ -54,7 +54,19 @@ Rails.application.routes.draw do
 
   # Admin pages
   namespace :admin do
-    root "users#index"
+
+    root "dashboard#index"
+    resources :vehicles do
+      member do
+        patch :publish
+        patch :unpublish
+        patch :toggle_featured
+      end
+    end
+
+    resources :brands
+    resources :body_types
+    resources :users, only: %i[index edit update destroy]
     resources :users do
       resources :events, only: [ :index ], controller: "users/events"
       resources :sessions, only: [ :index, :destroy ], controller: "users/sessions" do
@@ -75,9 +87,22 @@ Rails.application.routes.draw do
 
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  
+  # ===================
+  # Page Routes
+  # ===================
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  get "about", to: "pages#about"
+
+  resources :vehicles, only: %i[index show], param: :slug
+  resources :brands, only: %i[index show], param: :slug
+
+  # Comparison (session-based)
+  resource :comparison, only: [:show] do
+    post "add/:slug", action: :add, as: :add
+    delete "remove/:slug", action: :remove, as: :remove
+    delete "clear", action: :clear, as: :clear
+  end
 end
