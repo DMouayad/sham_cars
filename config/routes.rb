@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  scope "(:locale)", locale: /en|ar/ do
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   get  "sign_up", to: "registrations#new"
@@ -54,7 +55,6 @@ Rails.application.routes.draw do
 
   # Admin pages
   namespace :admin do
-
     root "dashboard#index"
     resources :vehicles do
       member do
@@ -89,7 +89,7 @@ Rails.application.routes.draw do
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  
+
   # ===================
   # Page Routes
   # ===================
@@ -100,9 +100,10 @@ Rails.application.routes.draw do
   resources :brands, only: %i[index show], param: :slug
 
   # Comparison (session-based)
-  resource :comparison, only: [:show] do
+  resource :comparison, only: [ :show ] do
     post "add/:slug", action: :add, as: :add
     delete "remove/:slug", action: :remove, as: :remove
     delete "clear", action: :clear, as: :clear
   end
+end
 end

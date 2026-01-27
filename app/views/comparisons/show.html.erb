@@ -1,0 +1,222 @@
+<% page_title "Compare Electric Vehicles" %>
+
+<div class="section-padding">
+  <div class="container-app">
+    <%= render "components/page_header",
+        title: "Compare Vehicles",
+        subtitle: "Compare up to 4 electric vehicles side by side" %>
+
+    <% if @vehicles.any? %>
+      <!-- Comparison Table -->
+      <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
+          <!-- Vehicle Headers -->
+          <thead>
+            <tr>
+              <th class="bg-base-200 min-w-[140px]">Vehicle</th>
+              <% @vehicles.each do |vehicle| %>
+                <th class="bg-base-200 min-w-[200px]">
+                  <div class="flex flex-col items-center gap-2">
+                    <figure class="w-32 h-20 bg-base-300 rounded-lg overflow-hidden">
+                      <img
+                        src="<%= vehicle.primary_image_url %>"
+                        alt="<%= vehicle.full_name %>"
+                        class="w-full h-full object-cover"
+>
+                    </figure>
+                    <div class="text-center">
+                      <p class="text-xs text-base-content/60"><%= vehicle.brand.name %></p>
+                      <p class="font-semibold"><%= vehicle.name %></p>
+                    </div>
+                    <%= button_to remove_comparison_path(vehicle.slug),
+                        method: :delete,
+                        class: "btn btn-ghost btn-xs text-error",
+                        title: "Remove" do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    <% end %>
+                  </div>
+                </th>
+              <% end %>
+
+              <% if @vehicles.count < 4 %>
+                <th class="bg-base-200 min-w-[200px]">
+                  <%= link_to vehicles_path, class: "btn btn-outline btn-sm gap-2" do %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Vehicle
+                  <% end %>
+                </th>
+              <% end %>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Price -->
+            <tr>
+              <td class="font-medium">Price</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center font-semibold text-primary"><%= vehicle.price_display %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Range -->
+            <tr>
+              <td class="font-medium">Range (WLTP)</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.range_wltp_km ? "#{vehicle.range_wltp_km} km" : "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Range EPA -->
+            <tr>
+              <td class="font-medium">Range (EPA)</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.range_epa_miles ? "#{vehicle.range_epa_miles} mi" : "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Battery -->
+            <tr>
+              <td class="font-medium">Battery</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.battery_display || "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Acceleration -->
+            <tr>
+              <td class="font-medium">0-100 km/h</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.acceleration_display || "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Top Speed -->
+            <tr>
+              <td class="font-medium">Top Speed</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.top_speed_kmh ? "#{vehicle.top_speed_kmh} km/h" : "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Power -->
+            <tr>
+              <td class="font-medium">Power</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.horsepower ? "#{vehicle.horsepower} hp" : "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Torque -->
+            <tr>
+              <td class="font-medium">Torque</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.torque_nm ? "#{vehicle.torque_nm} Nm" : "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Drive Type -->
+            <tr>
+              <td class="font-medium">Drive</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.drive_type || "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Fast Charge -->
+            <tr>
+              <td class="font-medium">Fast Charge</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.fast_charge_display || "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Charge Time -->
+            <tr>
+              <td class="font-medium">Charge Time (10-80%)</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.fast_charge_time_min ? "#{vehicle.fast_charge_time_min} min" : "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Seats -->
+            <tr>
+              <td class="font-medium">Seats</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.seats || "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Cargo -->
+            <tr>
+              <td class="font-medium">Cargo</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center"><%= vehicle.cargo_volume_liters ? "#{vehicle.cargo_volume_liters} L" : "—" %></td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- Body Type -->
+            <tr>
+              <td class="font-medium">Body Type</td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center">
+                  <span class="badge badge-ghost gap-1">
+                    <%= vehicle.body_type.display_icon %>
+                    <%= vehicle.body_type.name %>
+                  </span>
+                </td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+
+            <!-- View Details -->
+            <tr>
+              <td></td>
+              <% @vehicles.each do |vehicle| %>
+                <td class="text-center">
+                  <%= link_to "View Details", vehicle_path(vehicle.slug), class: "btn btn-primary btn-sm" %>
+                </td>
+              <% end %>
+              <td class="hidden"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Clear All -->
+      <div class="mt-6 text-center">
+        <%= button_to clear_comparison_path,
+            method: :delete,
+            class: "btn btn-ghost btn-sm",
+            data: { turbo_confirm: "Remove all vehicles from comparison?" } do %>
+          Clear All
+        <% end %>
+      </div>
+
+    <% else %>
+      <!-- Empty State -->
+      <div class="text-center py-16">
+        <div class="text-6xl mb-4">📊</div>
+        <h3 class="text-xl font-semibold mb-2">No vehicles to compare</h3>
+        <p class="text-base-content/60 mb-6">Add vehicles to compare their specifications side by side</p>
+        <%= link_to "Browse Vehicles", vehicles_path, class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -7,8 +7,11 @@ class ApplicationController < ActionController::Base
   before_action :set_current_request_details
   before_action :authenticate
   before_action :require_authentication
+  before_action :set_locale
 
   helper_method :current_user, :signed_in?, :comparison_vehicle_slugs, :comparison_count
+
+  around_action :switch_locale
 
   private
     def authenticate
@@ -35,7 +38,6 @@ class ApplicationController < ActionController::Base
         redirect_to new_sessions_sudo_path(proceed_to_url: request.original_url)
       end
     end
-  
     # Current user helper
     def current_user
       Current.user
@@ -59,5 +61,26 @@ class ApplicationController < ActionController::Base
 
     def comparison_count
       comparison_vehicle_slugs.size
+    end
+
+    # Local
+    def switch_locale(&action)
+    locale = params[:locale] || session[:locale] || extract_locale_from_header || I18n.default_locale
+    locale = I18n.default_locale unless I18n.available_locales.include?(locale.to_sym)
+    session[:locale] = locale
+    I18n.with_locale(locale, &action)
+    end
+
+    def extract_locale_from_header
+      request.env["HTTP_ACCEPT_LANGUAGE"].to_s.scan(/^[a-z]{2}/).first
+    end
+
+    # Ensure locale is included in generated URLs
+    def default_url_options(options = {})
+      { locale: I18n.locale }
+    end
+
+    def set_locale
+      I18n.locale = params[:locale] || I18n.default_locale
     end
 end

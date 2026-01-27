@@ -1,0 +1,425 @@
+ar:
+  application:
+    name: "شام كارز" # Sham Cars
+    copyright: "شام كارز" # Sham Cars
+    require_admin:
+      must_be_signed_in: "يجب تسجيل الدخول للوصول إلى هذه الصفحة"
+      not_authorized: "غير مصرح لك بالوصول إلى هذه الصفحة"
+
+  layout:
+    header:
+      home: "الرئيسية"
+      settings: "الإعدادات"
+      admin: "المشرف"
+      edit_profile: "تعديل الملف الشخصي"
+      change_password: "تغيير كلمة المرور"
+      change_email: "تغيير البريد الإلكتروني"
+      two_factor_authentication: "المصادقة الثنائية"
+      recovery_codes: "رموز الاسترداد"
+      devices_sessions: "الأجهزة والجلسات"
+      activity_log: "سجل النشاط"
+      log_out: "تسجيل الخروج"
+      sign_in: "تسجيل الدخول"
+      sign_up: "التسجيل"
+    footer:
+      copyright_text: "&copy; %{year} %{rights}. جميع الحقوق محفوظة."
+      revision: "النسخة"
+      uncommitted_changes: "●"
+      uncommitted_changes_tooltip: "يحتوي هذا النشر على تغييرات غير ملتزم بها"
+
+  home:
+    index:
+      welcome_back: "أهلاً بك مرة أخرى!"
+      signed_in_as: "تم تسجيل الدخول باسم"
+      account_settings: "إعدادات الحساب"
+      access_history: "سجل الوصول"
+      change_password: "تغيير كلمة المرور"
+      change_email_address: "تغيير عنوان البريد الإلكتروني"
+      two_factor_authentication: "المصادقة الثنائية"
+      recovery_codes: "رموز الاسترداد"
+      devices_sessions: "الأجهزة والجلسات"
+      activity_log: "سجل النشاط"
+      # New keys from home/index.html.erb
+      title: "شام كارز - اكتشف السيارات الكهربائية"
+      hero_title_part1: "اكتشف سيارتك القادمة"
+      hero_title_part2: "الكهربائية"
+      hero_description: "قارن المواصفات والأسعار والميزات لأحدث السيارات الكهربائية من كبرى الشركات المصنعة."
+      browse_vehicles: "تصفح السيارات"
+      compare_evs: "قارن السيارات الكهربائية"
+      featured_vehicles: "السيارات المميزة"
+      view_all: "عرض الكل ←"
+      popular_brands: "العلامات التجارية الشهيرة"
+      all_brands: "جميع العلامات التجارية ←"
+      browse_by_type: "تصفح حسب النوع"
+      ready_to_go_electric: "هل أنت مستعد للانتقال إلى الكهرباء؟"
+      cta_description: "قارن عدة سيارات كهربائية جنبًا إلى جنب للعثور على السيارة المثالية لاحتياجاتك."
+      start_comparing: "ابدأ المقارنة"
+
+  registrations:
+    new:
+      title: "التسجيل"
+      username: "اسم المستخدم"
+      username_hint: "أحرف وأرقام وشرطات وشرطات سفلية فقط"
+      email_address: "عنوان البريد الإلكتروني"
+      password: "كلمة المرور"
+      confirm_password: "تأكيد كلمة المرور"
+      password_minimum: "12 حرفًا كحد أدنى"
+      submit: "التسجيل"
+      or: "أو"
+      already_have_account: "لديك حساب بالفعل؟"
+      sign_in: "تسجيل الدخول"
+    create:
+      welcome: "أهلاً بك! لقد قمت بالتسجيل بنجاح"
+    errors:
+      prohibited: "خطأ منع حفظ هذا المستخدم:"
+      errors: "أخطاء منعت حفظ هذا المستخدم:"
+
+  sessions:
+    new:
+      title: "تسجيل الدخول"
+      email_address: "عنوان البريد الإلكتروني"
+      password: "كلمة المرور"
+      forgot_password: "هل نسيت كلمة المرور؟"
+      submit: "تسجيل الدخول"
+      or: "أو"
+      sign_in_without_password: "تسجيل الدخول بدون كلمة مرور"
+      sign_in_with_omniauth: "تسجيل الدخول باستخدام أومني أوث"
+      dont_have_account: "ليس لديك حساب؟"
+      sign_up: "التسجيل"
+    create:
+      signed_in_successfully: "تم تسجيل الدخول بنجاح"
+      incorrect_email_password: "البريد الإلكتروني أو كلمة المرور غير صحيحة"
+    destroy:
+      session_logged_out: "لقد تم تسجيل خروجك من تلك الجلسة"
+    index:
+      title: "الأجهزة والجلسات"
+      user_agent: "وكيل المستخدم"
+      ip_address: "عنوان IP"
+      created_at: "تاريخ الإنشاء"
+      log_out: "تسجيل الخروج"
+      back: "العودة"
+
+  passwords:
+    edit:
+      title: "تغيير كلمة المرور الخاصة بك"
+      current_password: "كلمة المرور الحالية"
+      new_password: "كلمة المرور الجديدة"
+      confirm_new_password: "تأكيد كلمة المرور الجديدة"
+      password_minimum: "12 حرفًا كحد أدنى"
+      save_changes: "حفظ التغييرات"
+      back: "العودة"
+    update:
+      password_changed: "تم تغيير كلمة المرور الخاصة بك"
+
+  profiles:
+    show:
+      edit_profile: "تعديل الملف الشخصي"
+      no_bio: "لم يضف هذا المستخدم سيرة ذاتية بعد."
+    edit:
+      title: "تعديل الملف الشخصي"
+      avatar: "الصورة الرمزية"
+      avatar_hint: "تحميل صورة ملف شخصي"
+      bio: "السيرة الذاتية"
+      save_changes: "حفظ التغييرات"
+      back: "العودة"
+    update:
+      profile_updated: "تم تحديث ملفك الشخصي"
+      avatar_updated: "تم تحديث صورتك الرمزية"
+      avatar_update_failed: "فشل تحديث الصورة الرمزية"
+
+  password_resets:
+    new:
+      title: "هل نسيت كلمة المرور؟"
+      description: "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور."
+      email_address: "عنوان البريد الإلكتروني"
+      send_password_reset_email: "إرسال بريد إلكتروني لإعادة تعيين كلمة المرور"
+      back_to_sign_in: "العودة إلى تسجيل الدخول"
+    edit:
+      title: "إعادة تعيين كلمة المرور الخاصة بك"
+      new_password: "كلمة المرور الجديدة"
+      confirm_new_password: "تأكيد كلمة المرور الجديدة"
+      password_minimum: "12 حرفًا كحد أدنى"
+      save_changes: "حفظ التغييرات"
+    create:
+      check_email: "تحقق من بريدك الإلكتروني للحصول على تعليمات إعادة التعيين"
+      must_verify_email: "لا يمكنك إعادة تعيين كلمة المرور حتى تتحقق من بريدك الإلكتروني"
+    update:
+      password_reset_successfully: "تم إعادة تعيين كلمة المرور بنجاح. يرجى تسجيل الدخول"
+      invalid_link: "رابط إعادة تعيين كلمة المرور هذا غير صالح"
+
+  emails:
+    edit:
+      change_email: "تغيير بريدك الإلكتروني"
+      verify_email: "تحقق من بريدك الإلكتروني"
+      verification_sent: "لقد أرسلنا بريدًا إلكترونيًا للتحقق إلى العنوان أدناه. تحقق من هذا البريد الإلكتروني واتبع التعليمات لتأكيد أنه عنوان بريدك الإلكتروني."
+      resend_verification_email: "إعادة إرسال بريد إلكتروني للتحقق"
+      email_address: "عنوان البريد الإلكتروني"
+      new_email: "عنوان بريد إلكتروني جديد"
+      current_password: "كلمة المرور الحالية"
+      save_changes: "حفظ التغييرات"
+      back: "العودة"
+    update:
+      email_changed: "تم تغيير بريدك الإلكتروني"
+
+  email_verifications:
+    show:
+      thank_you: "شكرًا لك على التحقق من عنوان بريدك الإلكتروني"
+    create:
+      verification_sent: "لقد أرسلنا بريدًا إلكترونيًا للتحقق إلى عنوان بريدك الإلكتروني"
+      invalid_link: "رابط التحقق من البريد الإلكتروني هذا غير صالح"
+
+  sudos:
+    new:
+      title: "أدخل كلمة المرور الخاصة بك للمتابعة"
+      password: "كلمة المرور"
+      continue: "متابعة"
+      why_asking: "لماذا تطلب مني ذلك؟"
+      why_asking_description: "لحماية حسابك بشكل أفضل، سنطلب منك أحيانًا تأكيد كلمة المرور قبل تنفيذ إجراءات حساسة."
+      forgot_password: "هل نسيت كلمة المرور؟"
+      reset_it: "سنساعدك على إعادة تعيينها حتى تتمكن من المتابعة."
+    create:
+      incorrect_password: "كلمة المرور التي أدخلتها غير صحيحة"
+
+  passwordlesses:
+    new:
+      title: "تسجيل الدخول بدون كلمة مرور"
+      description: "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطًا سحريًا لتسجيل الدخول."
+      email_address: "عنوان البريد الإلكتروني"
+      sign_in: "تسجيل الدخول"
+      back_to_sign_in: "العودة إلى تسجيل الدخول"
+    create:
+      check_email: "تحقق من بريدك الإلكتروني للحصول على تعليمات تسجيل الدخول"
+      must_verify_email: "لا يمكنك تسجيل الدخول حتى تتحقق من بريدك الإلكتروني"
+      invalid_link: "رابط تسجيل الدخول هذا غير صالح"
+    edit:
+      signed_in_successfully: "تم تسجيل الدخول بنجاح"
+
+  two_factor_authentication:
+    challenge:
+      totps:
+        new:
+          title: "المصادقة الثنائية"
+          description: "افتح تطبيق المصادقة الثنائية على هاتفك واكتب الرمز المكون من ستة أرقام أدناه:"
+          verification_code: "رمز التحقق"
+          verify: "تحقق"
+          dont_have_phone: "ليس لديك هاتفك؟"
+          use_recovery_code: "استخدم رمز استرداد للوصول إلى حسابك."
+        create:
+          code_didnt_work: "هذا الرمز لم يعمل. يرجى المحاولة مرة أخرى"
+          taking_too_long: "يستغرق الأمر وقتًا طويلاً جدًا. يرجى إعادة إدخال كلمة المرور والمحاولة مرة أخرى"
+      recovery_codes:
+        new:
+          title: "رمز الاسترداد"
+          description: "أدخل أحد رموز الاسترداد الخاصة بك أدناه للوصول إلى حسابك."
+          recovery_code: "رمز الاسترداد"
+          continue: "متابعة"
+          info: "للوصول إلى حسابك، أدخل أحد رموز الاسترداد (مثل xxxxxxxxxx) التي حفظتها عند إعداد جهاز المصادقة الثنائية."
+        create:
+          code_didnt_work: "هذا الرمز لم يعمل. يرجى المحاولة مرة أخرى"
+          taking_too_long: "يستغرق الأمر وقتًا طويلاً جدًا. يرجى إعادة إدخال كلمة المرور والمحاولة مرة أخرى"
+    profile:
+      totps:
+        new:
+          replace_setup: "هل تريد استبدال إعداد المصادقة الثنائية الحالي؟"
+          replace_setup_description: "حسابك محمي بالفعل بالمصادقة الثنائية. يمكنك استبدال هذا الإعداد إذا كنت ترغب في التبديل إلى هاتف جديد أو تطبيق مصادقة."
+          replace_setup_warning: "هل تريد المتابعة؟ لن يعمل إعداد المصادقة الثنائية الحالي."
+          yes_replace: "نعم، استبدل إعداد المصادقة الثنائية الخاص بي"
+          upgrade_security: "ترقية أمانك باستخدام المصادقة الثنائية"
+          step_1_title: "الخطوة 1: الحصول على تطبيق مصادقة"
+          step_1_description_1: "أولاً، ستحتاج إلى تطبيق مصادقة ثنائية على هاتفك."
+          step_1_skip: "إذا كان لديك بالفعل، فانتقل إلى الخطوة 2."
+          step_1_recommendation: "إذا لم يكن لديك واحد، أو لم تكن متأكدًا، فإننا نوصي بتطبيق Microsoft Authenticator"
+          step_1_download: "يمكنك تنزيله مجانًا على متجر تطبيقات Apple لأجهزة iPhone، أو متجر Google Play لأجهزة Android. يرجى إحضار هاتفك والبحث في المتجر وتثبيته الآن."
+          step_2_title: "الخطوة 2: مسح وإدخال الرمز"
+          step_2_description: "بعد ذلك، افتح تطبيق المصادقة، وانقر على \"مسح رمز الاستجابة السريعة\" أو \"+\"، وعندما يطلب منك، وجه كاميرا هاتفك إلى صورة رمز الاستجابة السريعة هذا أدناه."
+          point_camera: "وجه الكاميرا هنا"
+          code_label: "بعد المسح بالكاميرا، سيقوم التطبيق بإنشاء رمز مكون من ستة أرقام. أدخله هنا:"
+          verify_and_activate: "تحقق وتفعيل"
+          back: "العودة"
+        create:
+          code_didnt_work: "هذا الرمز لم يعمل. يرجى المحاولة مرة أخرى"
+      recovery_codes:
+        index:
+          title: "رموز استرداد المصادقة الثنائية"
+          description: "توفر رموز الاسترداد طريقة لتسجيل الدخول إذا فقدت هاتفك (أو لم يكن معك). احفظها واحتفظ بها في مكان آمن."
+          show_codes: "إظهار رموز الاسترداد"
+          hide_codes: "إخفاء رموز الاسترداد"
+          ok_done: "حسناً، انتهيت"
+          need_new_codes: "هل تحتاج إلى رموز استرداد جديدة؟"
+          need_new_codes_description: "إذا كنت تعتقد أن رموزك قد وقعت في الأيدي الخطأ، يمكنك الحصول على مجموعة جديدة. تأكد من حفظ الرموز الجديدة لأن الرموز القديمة ستتوقف عن العمل."
+          generate_new: "إنشاء رموز استرداد جديدة"
+        create:
+          new_codes_generated: "تم إنشاء رموز الاسترداد الجديدة الخاصة بك"
+
+  events:
+    index:
+      title: "سجل النشاط"
+      action: "الإجراء"
+      user_agent: "وكيل المستخدم"
+      ip_address: "عنوان IP"
+      created_at: "تاريخ الإنشاء"
+      back: "العودة"
+      no_events: "لم يتم العثور على أحداث"
+
+  settings:
+    title: "الإعدادات"
+    nav:
+      profile: "الملف الشخصي"
+      password: "كلمة المرور"
+      email: "البريد الإلكتروني"
+      appearance: "المظهر"
+      two_factor_authentication: "المصادقة الثنائية"
+      sessions: "الجلسات"
+      activity_log: "سجل النشاط"
+    two_factor_authentication:
+      enabled: "المصادقة الثنائية ممكّنة"
+      recovery_codes: "رموز الاسترداد"
+      view_recovery_codes: "عرض رموز الاسترداد"
+    appearance:
+      title: "المظهر"
+      description: "اختر نسقًا لواجهتك. سيتم تطبيق النسق على الفور."
+      theme_label: "النسق"
+      update:
+        theme_updated: "تم تحديث النسق بنجاح"
+
+  admin:
+    title: "المشرف"
+    nav:
+      users: "المستخدمون"
+    users:
+      index:
+        title: "المستخدمون"
+        total_users: "الإجمالي: %{count} مستخدم"
+        total_users_other: "الإجمالي: %{count} مستخدمين"
+        search: "بحث"
+        search_placeholder: "البحث حسب اسم المستخدم أو البريد الإلكتروني..."
+        filter_by_role: "التصفية حسب الدور"
+        filter: "تصفية"
+        clear: "مسح"
+        all_roles: "جميع الأدوار"
+        role_user: "مستخدم"
+        role_admin: "مشرف"
+        username: "اسم المستخدم"
+        email: "البريد الإلكتروني"
+        role: "الدور"
+        verified: "تم التحقق"
+        verified_yes: "نعم"
+        verified_no: "لا"
+        created_at: "تاريخ الإنشاء"
+        actions: "الإجراءات"
+        view: "عرض"
+        edit: "تعديل"
+        delete: "حذف"
+        confirm_delete: "هل أنت متأكد أنك تريد حذف المستخدم %{username}؟ لا يمكن التراجع عن هذا الإجراء."
+        cannot_delete_self_tooltip: "لا يمكنك حذف حسابك الخاص"
+        no_users_found: "لم يتم العثور على مستخدمين"
+      show:
+        title: "تفاصيل المستخدم"
+        back_to_list: "العودة إلى القائمة"
+        edit: "تعديل المستخدم"
+        delete: "حذف المستخدم"
+        confirm_delete: "هل أنت متأكد أنك تريد حذف المستخدم %{username}؟ لا يمكن التراجع عن هذا الإجراء."
+        user_information: "معلومات المستخدم"
+        username: "اسم المستخدم"
+        email: "البريد الإلكتروني"
+        role: "الدور"
+        verified: "تم التحقق"
+        verified_yes: "نعم"
+        verified_no: "لا"
+        created_at: "تاريخ الإنشاء"
+        updated_at: "تاريخ التحديث"
+        statistics: "الإحصائيات"
+        active_sessions: "الجلسات النشطة"
+        total_events: "إجمالي الأحداث"
+        recovery_codes: "رموز الاسترداد"
+        avatar: "الصورة الرمزية"
+        view_sessions: "عرض الجلسات"
+        view_events: "عرض الأحداث"
+        view_avatar: "عرض الصورة الرمزية"
+        no_avatar: "لا توجد صورة رمزية"
+      edit:
+        title: "تعديل المستخدم"
+        email: "عنوان البريد الإلكتروني"
+        username: "اسم المستخدم"
+        role: "الدور"
+        role_user: "مستخدم"
+        role_admin: "مشرف"
+        role_disabled_hint: "لا يمكنك تغيير دورك الخاص"
+        verified: "تم التحقق من البريد الإلكتروني"
+        verified_hint: "حدد هذا المربع إذا تم التحقق من البريد الإلكتروني للمستخدم"
+        cancel: "إلغاء"
+        save_changes: "حفظ التغييرات"
+      update:
+        user_updated: "تم تحديث المستخدم بنجاح"
+      destroy:
+        user_deleted: "تم حذف المستخدم بنجاح"
+        cannot_delete_self: "لا يمكنك حذف حسابك الخاص"
+      events:
+        index:
+          title: "أحداث %{username}"
+          back_to_user: "العودة إلى المستخدم"
+          action: "الإجراء"
+          user_agent: "وكيل المستخدم"
+          ip_address: "عنوان IP"
+          created_at: "تاريخ الإنشاء"
+          no_events: "لا توجد أحداث لهذا المستخدم"
+      sessions:
+        index:
+          title: "جلسات %{username}"
+          back_to_user: "العودة إلى المستخدم"
+          sign_out_all: "تسجيل الخروج من جميع الجلسات"
+          confirm_sign_out_all: "هل أنت متأكد أنك تريد تسجيل الخروج من جميع الجلسات لهذا المستخدم؟"
+          user_agent: "وكيل المستخدم"
+          ip_address: "عنوان IP"
+          created_at: "تاريخ الإنشاء"
+          sign_out: "تسجيل الخروج"
+          sudo_active: "وضع المسؤول نشط"
+          no_sessions: "لا توجد جلسات نشطة لهذا المستخدم"
+        destroy:
+          session_logged_out: "تم تسجيل الخروج من الجلسة بنجاح"
+        destroy_all:
+          all_sessions_logged_out: "تم تسجيل الخروج من جميع الجلسات بنجاح"
+      avatars:
+        show:
+          title: "الصورة الرمزية لـ %{username}"
+          back_to_user: "العودة إلى المستخدم"
+          delete_avatar: "حذف الصورة الرمزية"
+          confirm_delete: "هل أنت متأكد أنك تريد حذف هذه الصورة الرمزية؟"
+          no_avatar: "لا توجد صورة رمزية لهذا المستخدم"
+          avatar_details: "تفاصيل الصورة الرمزية"
+          filename: "اسم الملف"
+          content_type: "نوع المحتوى"
+          file_size: "حجم الملف"
+          uploaded_at: "تاريخ الرفع"
+          view_full_size: "عرض بالحجم الكامل"
+        destroy:
+          avatar_deleted: "تم حذف الصورة الرمزية بنجاح"
+
+  common:
+    back: "العودة"
+    or: "أو"
+    errors:
+      prohibited: "خطأ منع حفظ هذا المستخدم:"
+      errors: "أخطاء منعت حفظ هذا المستخدم:"
+    try_again_later: "حاول مرة أخرى لاحقًا"
+
+  errors:
+    username:
+      invalid_format: "يجب أن يحتوي على أحرف وأرقام وشرطات وشرطات سفلية فقط"
+    password:
+      pwned: "يمكن تخمينها بسهولة"
+
+  pages:
+    about:
+      title: "حول - شام كارز"
+      header_title: "حول شام كارز"
+      header_subtitle: "دليلك إلى عالم السيارات الكهربائية"
+      p1: "شام كارز هي منصة شاملة لاكتشاف ومقارنة والتعرف على السيارات الكهربائية."
+      p2: "مهمتنا هي تسهيل الانتقال إلى النقل الكهربائي من خلال توفير معلومات دقيقة وحديثة حول جميع السيارات الكهربائية المتاحة."
+      what_we_offer: "ما نقدمه"
+      comprehensive_database: "قاعدة بيانات شاملة: مواصفات تفصيلية لمئات السيارات الكهربائية"
+      easy_comparison: "مقارنة سهلة: قارن ما يصل إلى 4 سيارات جنبًا إلى جنب"
+      regular_updates: "تحديثات منتظمة: تضاف النماذج الجديدة فور الإعلان عنها"
+      accurate_data: "بيانات دقيقة: مواصفات من مصادر الشركات المصنعة الرسمية"
+      contact: "اتصل بنا"
+      contact_description: "هل لديك أسئلة أو اقتراحات؟ نود أن نسمع منك."

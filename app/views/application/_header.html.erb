@@ -72,6 +72,11 @@
         </div>
       <% end %>
     </div>
+
+      <% I18n.available_locales.each do |locale| %>
+  <% next if I18n.locale == locale %>
+  <%= link_to t(".lang.#{locale}"), url_for(locale: locale), class: "btn btn-ghost" %>
+<% end %>   
     </nav>
 
     <!-- Mobile Menu -->
