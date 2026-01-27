@@ -84,3 +84,9 @@ gem "rqrcode"
 
 gem "lexxy", "~> 0.1.22.beta"
 gem "kaminari"
+
+
+gem "nice_partials"
+gem 'pagy', '~> 43.2' # Pagination - Omit the patch segment to avoid breaking changes
+gem "ransack"        # Search/filtering
+gem "friendly_id"    # Slugs
