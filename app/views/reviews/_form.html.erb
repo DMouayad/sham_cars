@@ -1,0 +1,45 @@
+<div id="new-review" class="mt-12">
+  <h2 class="text-2xl font-bold mb-6">Write a Review</h2>
+  <% if Current.user %>
+    <% if Current.user.reviews.exists?(vehicle: @vehicle) %>
+      <div class="card bg-base-200">
+        <div class="card-body">
+          <p class="text-center text-base-content/80">You have already reviewed this vehicle. Thank you for your feedback!</p>
+        </div>
+      </div>
+    <% else %>
+      <%= form_with(model: [@vehicle, Review.new], url: vehicle_reviews_path(@vehicle.slug), class: "card bg-base-100 shadow-sm") do |form| %>
+        <div class="card-body">
+          <div class="form-control">
+            <%= form.label :rating, class: "label" %>
+            <div class="rating rating-lg">
+              <% 5.times do |i| %>
+                <%= form.radio_button :rating, i + 1, class: "mask mask-star-2 bg-orange-400" %>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="form-control">
+            <%= form.label :title, class: "label" %>
+            <%= form.text_field :title, class: "input input-bordered" %>
+          </div>
+
+          <div class="form-control">
+            <%= form.label :body, "Your Review", class: "label" %>
+            <%= form.text_area :body, rows: 4, class: "textarea textarea-bordered", placeholder: "What did you like or dislike? What should other drivers know?" %>
+          </div>
+
+          <div class="form-control mt-6">
+            <%= form.submit "Submit Review", class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div class="card bg-base-200">
+      <div class="card-body text-center">
+        <p><%= link_to "Sign in", sign_in_path, class: "link" %> to leave a review.</p>
+      </div>
+    </div>
+  <% end %>
+</div>

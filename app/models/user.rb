@@ -81,6 +81,7 @@ class User < ApplicationRecord
   has_many :recovery_codes, dependent: :destroy
   has_many :sign_in_tokens, dependent: :destroy
   has_many :events, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   has_one_attached :avatar
   has_rich_text :bio

@@ -20,6 +20,8 @@ class VehiclesController < ApplicationController
                       .friendly
                       .find(params[:slug])
 
+    @reviews = @vehicle.approved_reviews.includes(:user).ordered_by_newest
+
     # Related vehicles (same brand or body type)
     @related_vehicles = Vehicle.includes(:brand, :images)
                                .where(published: true)

@@ -38,6 +38,7 @@ class Review < ApplicationRecord
   validates :user_id, uniqueness: { scope: :vehicle_id, message: "has already reviewed this vehicle" }
 
   scope :recent, -> { order(created_at: :desc) }
+  scope :ordered_by_newest, -> { order(created_at: :desc) }
   scope :by_rating, -> { order(rating: :desc) }
 
   after_save :update_vehicle_rating, if: :saved_change_to_status?

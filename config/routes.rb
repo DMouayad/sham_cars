@@ -96,7 +96,9 @@ Rails.application.routes.draw do
 
   get "about", to: "pages#about"
 
-  resources :vehicles, only: %i[index show], param: :slug
+  resources :vehicles, only: %i[index show], param: :slug do
+    resources :reviews, only: %i[create]
+  end
   resources :brands, only: %i[index show], param: :slug
 
   # Comparison (session-based)
