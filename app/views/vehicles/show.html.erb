@@ -171,6 +171,45 @@
       </div>
     </div>
 
+    <!-- Reviews -->
+    <div id="reviews" class="mt-12">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold">Reviews</h2>
+        <a href="#new-review" class="btn btn-primary">Write a Review</a>
+      </div>
+
+      <% if @reviews.any? %>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="flex items-center justify-center p-8 bg-base-200 rounded-xl">
+            <div class="text-center">
+              <p class="text-5xl font-bold"><%= @vehicle.average_rating.round(1) %></p>
+              <div class="rating rating-lg mt-2">
+                <% @vehicle.average_rating.round.times do %>
+                  <input type="radio" name="rating-9" class="mask mask-star-2 bg-orange-400" disabled />
+                <% end %>
+              </div>
+              <p class="mt-2 text-base-content/70">Based on <%= pluralize(@vehicle.reviews_count, "review") %></p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <% @reviews.first(3).each do |review| %>
+              <%= render "reviews/review", review: review %>
+            <% end %>
+          </div>
+        </div>
+
+        <% if @reviews.count > 3 %>
+          <div class="mt-6 text-center">
+            <button class="btn btn-outline">Show All <%= @reviews.count %> Reviews</button>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="text-center p-8 bg-base-200 rounded-xl">
+          <h3 class="text-lg font-semibold">No reviews yet</h3>
+          <p class="mt-2 text-base-content/70">Be the first to share your thoughts on the <%= @vehicle.full_name %>.</p>
+        </div>
+      <% end %>
+    </div>
     <!-- Related Vehicles -->
     <% if @related_vehicles.any? %>
       <div class="mt-12">
@@ -182,5 +221,7 @@
         </div>
       </div>
     <% end %>
+
+    <%= render "reviews/form", vehicle: @vehicle %>
   </div>
 </div>

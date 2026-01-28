@@ -12,11 +12,11 @@
 
     <!-- Desktop Navigation -->
     <nav class="hidden md:flex items-center gap-1">
-      <%= link_to "Vehicles", vehicles_path, class: "btn btn-ghost btn-sm" %>
-      <%= link_to "Brands", brands_path, class: "btn btn-ghost btn-sm" %>
+      <%= link_to t("layout.header.vehicles"), vehicles_path, class: "btn btn-ghost btn-sm" %>
+      <%= link_to t("layout.header.brands"), brands_path, class: "btn btn-ghost btn-sm" %>
 
       <%= link_to comparison_path, class: "btn btn-ghost btn-sm gap-2" do %>
-        Compare
+        <%= t("layout.header.compare") %>
         <% if comparison_count > 0 %>
           <span class="badge badge-primary badge-sm"><%= comparison_count %></span>
         <% end %>
@@ -56,7 +56,7 @@
             <li><hr class="my-2"></li>
             <li><%= link_to t("layout.header.home"), root_path %></li>
               <% if Current.user&.admin? %>
-              <li><%= link_to "Admin Panel", admin_root_path %></li>
+              <li><%= link_to t("layout.header.admin"), admin_root_path %></li>
             <% end %>
             <li><%= link_to t("layout.header.settings"), settings_path %></li>
             <li><hr class="my-2"></li>
@@ -87,11 +87,11 @@
         </svg>
       </div>
       <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li><%= link_to "Vehicles", vehicles_path %></li>
-        <li><%= link_to "Brands", brands_path %></li>
+        <li><%= link_to t("layout.header.vehicles"), vehicles_path %></li>
+        <li><%= link_to t("layout.header.brands"), brands_path %></li>
         <li>
           <%= link_to comparison_path do %>
-            <span>Compare</span>
+            <span><%= t("layout.header.compare") %></span>
             <% if comparison_count > 0 %>
               <span class="badge badge-primary badge-sm"><%= comparison_count %></span>
             <% end %>
@@ -100,16 +100,16 @@
 
         <% if signed_in? %>
           <div class="divider my-1"></div>
-          <li><%= link_to "Account", edit_my_profile_path %></li>
+          <li><%= link_to t("layout.header.account"), edit_my_profile_path %></li>
           <% if current_user.admin? %>
-            <li><%= link_to "Admin", admin_root_path %></li>
+            <li><%= link_to t("layout.header.admin"), admin_root_path %></li>
           <% end %>
           <div class="divider my-1"></div>
-          <li><%= button_to "Sign Out", settings_session_path(Current.session), method: :delete, class: "text-left w-full" %></li>
+          <li><%= button_to t("layout.header.sign_out"), settings_session_path(Current.session), method: :delete, class: "text-left w-full" %></li>
         <% else %>
           <div class="divider my-1"></div>
-          <li><%= link_to "Sign In", sign_in_path %></li>
-          <li><%= link_to "Sign Up", sign_up_path %></li>
+          <li><%= link_to t("layout.header.sign_in"), sign_in_path %></li>
+          <li><%= link_to t("layout.header.sign_up"), sign_up_path %></li>
         <% end %>
       </ul>
     </div>

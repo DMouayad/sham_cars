@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html data-controller="theme" data-theme="<%= Current.user&.theme || 'light' %>" data-saved-theme="<%= Current.user&.theme %>">
+<html lang="<%= I18n.locale %>" dir="<%= I18n.locale.to_s == "ar" ? "rtl" : "ltr" %>"
+    data-controller="theme" data-theme="<%= Current.user&.theme || 'light' %>" data-saved-theme="<%= Current.user&.theme %>">
   <head>
     <title><%= content_for(:title) || t("application.name") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -18,6 +19,11 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "lexxy" %>
@@ -35,7 +41,7 @@
       </div>
     </div>
 
-    <main class="container mx-auto px-5 py-8 flex-1">
+    <main class="container mx-auto px-5 flex-1">
       <%= yield %>
     </main>
 

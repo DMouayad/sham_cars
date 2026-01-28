@@ -5,15 +5,14 @@
   <div class="hero-content text-center py-12 md:py-20">
     <div class="max-w-2xl">
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold">
-        Discover Your Next
-        <span class="text-primary">Electric Vehicle</span>
+        <%= t("home.index.hero_title") %>
       </h1>
       <p class="py-6 text-lg text-base-content/70">
-        <%t("home.index.hero_description")%>
+        <%= t("home.index.hero_description") %>
       </p>
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <%= link_to "Browse Vehicles", vehicles_path, class: "btn btn-primary btn-lg" %>
-        <%= link_to "Compare EVs", comparison_path, class: "btn btn-outline btn-lg" %>
+        <%= link_to t("home.index.browse_vehicles"), vehicles_path, class: "btn btn-primary btn-lg" %>
+        <%= link_to t("home.index.compare_evs"), comparison_path, class: "btn btn-outline btn-lg" %>
       </div>
     </div>
   </div>
@@ -24,8 +23,8 @@
   <section class="section-padding bg-base-100">
     <div class="container-app">
       <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl md:text-3xl font-bold">Featured Vehicles</h2>
-        <%= link_to "View All →", vehicles_path, class: "btn btn-ghost btn-sm" %>
+        <h2 class="text-2xl md:text-3xl font-bold"><%= t("home.index.featured_vehicles") %></h2>
+        <%= link_to "#{t("home.index.view_all")} →", vehicles_path, class: "btn btn-ghost btn-sm" %>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -42,8 +41,8 @@
   <section class="section-padding bg-base-200">
     <div class="container-app">
       <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl md:text-3xl font-bold">Popular Brands</h2>
-        <%= link_to "All Brands →", brands_path, class: "btn btn-ghost btn-sm" %>
+        <h2 class="text-2xl md:text-3xl font-bold"><%= t("home.index.popular_brands") %></h2>
+        <%= link_to "#{t("home.index.all_brands")} →", brands_path, class: "btn btn-ghost btn-sm" %>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
@@ -58,7 +57,7 @@
 <!-- Body Types Section -->
 <section class="section-padding bg-base-100">
   <div class="container-app">
-    <h2 class="text-2xl md:text-3xl font-bold mb-6">Browse by Type</h2>
+    <h2 class="text-2xl md:text-3xl font-bold mb-6"><%= t("home.index.browse_by_type") %></h2>
 
     <div class="flex flex-wrap gap-3">
       <% @body_types.each do |body_type| %>
@@ -75,10 +74,10 @@
 <!-- CTA Section -->
 <section class="section-padding bg-primary text-primary-content">
   <div class="container-app text-center">
-    <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to Go Electric?</h2>
+    <h2 class="text-2xl md:text-3xl font-bold mb-4"><%= t("home.index.cta_title") %></h2>
     <p class="mb-6 opacity-90 max-w-xl mx-auto">
-      Compare multiple electric vehicles side by side to find the perfect match for your needs.
+      <%= t("home.index.cta_description") %>
     </p>
-    <%= link_to "Start Comparing", comparison_path, class: "btn btn-secondary btn-lg" %>
+    <%= link_to t("home.index.start_comparing"), comparison_path, class: "btn btn-secondary btn-lg" %>
   </div>
 </section>

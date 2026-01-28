@@ -3,30 +3,38 @@
 @source not "./daisyui{,*}.mjs";
 
 @plugin "./daisyui.mjs" {
-  themes: all;
+    themes: all;
 }
 
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
-@plugin "./daisyui-theme.mjs"{
-  /* custom theme here */
+@plugin "./daisyui-theme.mjs" {
+    /* custom theme here */
 }
 
 /* Smooth transitions for theme changes - colors and shapes */
 *,
 *::before,
 *::after {
-  transition-property: background-color, color, border-color, fill, stroke, border-radius, box-shadow;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+    transition-property:
+        background-color, color, border-color, fill, stroke, border-radius,
+        box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
 }
 
+@layer base {
+    html:lang(ar) {
+        --font-sans:
+            "Tajawal", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+            Roboto, Arial, "Noto Sans", sans-serif;
+    }
+}
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
 }
-
 
 @layer components {
     .container-app {
@@ -36,15 +44,15 @@
     .section-padding {
         @apply py-8 md:py-12 lg:py-16;
     }
-     /* Vehicle card hover effect */
-  .vehicle-card {
-    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
-  }
-  
-  /* Spec badge styling */
-  .spec-badge {
-    @apply inline-flex items-center gap-1 px-2 py-1 bg-base-200 rounded-lg text-sm;
-  }
+    /* Vehicle card hover effect */
+    .vehicle-card {
+        @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+    }
+
+    /* Spec badge styling */
+    .spec-badge {
+        @apply inline-flex items-center gap-1 px-2 py-1 bg-base-200 rounded-lg text-sm;
+    }
 }
 
 /* Pagy series_nav styling */

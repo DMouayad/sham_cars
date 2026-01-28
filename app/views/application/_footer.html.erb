@@ -1,17 +1,17 @@
 <footer class="footer footer-center bg-base-200 text-base-content p-10 mt-auto">
   <aside>
     <div class="text-4xl mb-2">⚡</div>
-    <p class="font-bold">ArenaEV</p>
-    <p class="text-sm text-base-content/70">Discover and compare electric vehicles</p>
-    <p class="text-xs text-base-content/50 mt-4">© <%= Date.current.year %> ArenaEV. All rights reserved.</p>
+    <p class="font-bold"><%= t("application.name") %></p>
+    <p class="text-sm text-base-content/70"><%= t("application.description") %></p>
+    <p class="text-xs text-base-content/50 mt-4">©  <%= t("application.name") %>. <%= t("layout.footer.copyright_text",year:  Date.current.year, rights: "") %></p>
   </aside>
 
   <nav>
     <div class="flex gap-4">
-      <%= link_to "Vehicles", vehicles_path, class: "link link-hover" %>
-      <%= link_to "Brands", brands_path, class: "link link-hover" %>
-      <%= link_to "Compare", comparison_path, class: "link link-hover" %>
-      <%= link_to "About", about_path, class: "link link-hover" %>
+      <%= link_to t("layout.footer.vehicles"), vehicles_path, class: "link link-hover" %>
+      <%= link_to t("layout.footer.brands"), brands_path, class: "link link-hover" %>
+      <%= link_to t("layout.footer.compare"), comparison_path, class: "link link-hover" %>
+      <%= link_to t("layout.footer.about"), about_path, class: "link link-hover" %>
     </div>
   </nav>
 </footer>
