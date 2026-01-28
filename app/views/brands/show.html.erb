@@ -1,4 +1,4 @@
-<% page_title "#{@brand.name} Electric Vehicles" %>
+<% page_title t("brands.show.page_title", name: @brand.name) %>
 
 <div class="section-padding">
   <div class="container-app">
@@ -29,7 +29,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
-              Website
+              <%= t("brands.show.website") %>
             <% end %>
           <% end %>
         </div>
@@ -43,7 +43,7 @@
     <!-- Vehicles Section -->
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-xl font-semibold">
-        <%= pluralize(@pagy.count, "Vehicle") %>
+        <%= t("brands.show.vehicle_count", count: @pagy.count) %>
       </h2>
     </div>
 
@@ -58,8 +58,8 @@
     <% else %>
       <%= render "components/empty_state",
           icon: "🚗",
-          title: "No vehicles yet",
-          message: "This brand has no published vehicles" %>
+          title: t("brands.show.no_vehicles_yet"),
+          message: t("brands.show.no_published_vehicles") %>
     <% end %>
   </div>
 </div>

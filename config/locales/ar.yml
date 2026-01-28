@@ -11,7 +11,7 @@ ar:
     header:
       home: "الرئيسية"
       settings: "الإعدادات"
-      admin: "المشرف"
+      admin: "لوحة التحكم"
       edit_profile: "تعديل الملف الشخصي"
       change_password: "تغيير كلمة المرور"
       change_email: "تغيير البريد الإلكتروني"
@@ -21,7 +21,7 @@ ar:
       activity_log: "سجل النشاط"
       log_out: "تسجيل الخروج"
       sign_in: "تسجيل الدخول"
-      sign_up: "التسجيل"
+      sign_up: "إنشاء حساب"
       vehicles: "المركبات"
       brands: "العلامات التجارية"
       compare: "قارن"
@@ -36,6 +36,26 @@ ar:
       brands: "العلامات التجارية"
       compare: "قارن"
       about: "حول"
+
+  brands:
+    show:
+      page_title: "مركبات %{name} الكهربائية"
+      website: "الموقع الإلكتروني"
+      vehicle_count:
+        one: "مركبة واحدة"
+        other: "%{count} مركبات"
+      no_vehicles_yet: "لا توجد مركبات بعد"
+      no_published_vehicles: "هذه العلامة التجارية ليس لديها مركبات منشورة"
+
+  brands:
+    show:
+      page_title: "مركبات %{name} الكهربائية"
+      website: "الموقع الإلكتروني"
+      vehicle_count:
+        one: "مركبة واحدة"
+        other: "%{count} مركبات"
+      no_vehicles_yet: "لا توجد مركبات بعد"
+      no_published_vehicles: "هذه العلامة التجارية ليس لديها مركبات منشورة"
 
   home:
     index:
@@ -74,6 +94,20 @@ ar:
       contact: "تعزيز المشاركة"
       contact_description: "من خالل تأمين منصة داعمة لتبادل الخبرات و اعطاء النصائح و الحلول و االجابة على أسئلة المستخدمين و تقديم التوصيات المختلفة بناء على اهتماماتهم"
 
+  activerecord:
+    errors:
+      models:
+        review:
+          attributes:
+            body:
+              too_short: "يجب أن يكون طوله 10 حروف على الأقل"
+              blank: "لا يمكن أن يكون فارغًا"
+            rating:
+              blank: "الرجاء تحديد تقييم"
+            user_id:
+              taken: "لقد قمت بتقييم هذه السيارة بالفعل"
+
+
   registrations:
     new:
       title: "التسجيل"
@@ -83,7 +117,7 @@ ar:
       password: "كلمة المرور"
       confirm_password: "تأكيد كلمة المرور"
       password_minimum: "12 حرفًا كحد أدنى"
-      submit: "التسجيل"
+      submit: "تسجيل"
       or: "أو"
       already_have_account: "لديك حساب بالفعل؟"
       sign_in: "تسجيل الدخول"
@@ -109,7 +143,7 @@ ar:
       signed_in_successfully: "تم تسجيل الدخول بنجاح"
       incorrect_email_password: "البريد الإلكتروني أو كلمة المرور غير صحيحة"
     destroy:
-      session_logged_out: "لقد تم تسجيل خروجك من تلك الجلسة"
+      session_logged_out: "تم تسجيل الخروج بنجاح"
     index:
       title: "الأجهزة والجلسات"
       user_agent: "وكيل المستخدم"
@@ -117,6 +151,25 @@ ar:
       created_at: "تاريخ الإنشاء"
       log_out: "تسجيل الخروج"
       back: "العودة"
+
+  reviews:
+    form:
+      write_review: "اكتب مراجعة"
+      review_submitted: "تم إرسال المراجعة!"
+      already_reviewed_message: "لقد قمت بالفعل بمراجعة هذه المركبة. شكرا لك على ملاحظاتك!"
+      your_rating: "تقييمك"
+      required: "مطلوب"
+      select_a_rating: "اختر تقييمًا"
+      review_title: "عنوان المراجعة"
+      optional: "اختياري"
+      title_placeholder: "لخص تجربتك في بضع كلمات"
+      your_review: "مراجعتك"
+      body_placeholder: "ماذا أعجبك أو لم يعجبك؟ كيف كانت تجربة القيادة؟ هل توصي بهذه المركبة؟"
+      feedback_info: "ملاحظاتك الصادقة تساعد السائقين الآخرين على اتخاذ قرارات مستنيرة"
+      submit_review: "إرسال المراجعة"
+      share_your_experience: "شارك تجربتك"
+      sign_in_to_review: "سجل الدخول لترك مراجعة ومساعدة السائقين الآخرين"
+      sign_in: "تسجيل الدخول"
 
   passwords:
     edit:

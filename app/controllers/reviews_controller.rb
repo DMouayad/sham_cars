@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
     @review.user = current_user
 
     if @review.save
-      redirect_to vehicle_path(@vehicle, anchor: "reviews"), notice: "Thank you for your review! It is pending approval."
+      redirect_to vehicle_path(@vehicle, anchor: "reviews"), notice: "Thank you for your review!"
     else
       # It's tricky to re-render the vehicle show page with errors.
       # A full-page reload with an error flash is simpler for now.

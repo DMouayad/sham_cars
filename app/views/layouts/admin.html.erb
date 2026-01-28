@@ -22,10 +22,10 @@
       <!-- Top Navbar -->
      <header class="navbar bg-base-100 shadow-none sticky top-0 z-50">
     <div class="container-app flex w-full justify-end">
-   
+
     <!-- Desktop Navigation -->
     <nav class="hidden md:flex items-center gap-1">
-      
+
       <div class="flex-none ml-auto">
       <% if Current.user %>
         <div class="dropdown dropdown-end">
@@ -60,7 +60,7 @@
             <li><hr class="my-2"></li>
             <li><%= link_to t("layout.header.home"), root_path %></li>
               <% if Current.user&.admin? %>
-              <li><%= link_to "Admin Panel", admin_root_path %></li>
+                  <li><%= link_to t("layout.header.admin"), admin_root_path %></li>
             <% end %>
             <li><%= link_to t("layout.header.settings"), settings_path %></li>
             <li><hr class="my-2"></li>
@@ -76,6 +76,10 @@
         </div>
       <% end %>
     </div>
+    <% I18n.available_locales.each do |locale| %>
+<% next if I18n.locale == locale %>
+<%= link_to t(".lang.#{locale}"), url_for(locale: locale), class: "btn btn-ghost" %>
+<% end %>
     </nav>
 
     <!-- Mobile Menu -->
@@ -147,7 +151,7 @@
         <!-- Logo -->
         <div class="mb-6 flex items-center gap-2 px-2">
           <span class="text-2xl">⚡</span>
-          <span class="text-xl font-bold">ArenaEV</span>
+          <span class="text-xl font-bold">ShamCars</span>
         </div>
 
         <!-- Navigation -->
@@ -217,7 +221,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
-              <%=t("layout.header.log_out")%>
+              <%= t("layout.header.log_out") %>
               <% end %>
           </li>
         </ul>

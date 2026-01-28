@@ -176,6 +176,18 @@ class Vehicle < ApplicationRecord
     full_name
   end
 
+  def update_rating_cache!
+    approved = reviews.approved
+    if approved.any?
+      update_columns(
+        reviews_count: approved.count,
+        average_rating: approved.average(:rating).to_f.round(2)
+      )
+    else
+      update_columns(reviews_count: 0, average_rating: 0.0)
+    end
+  end
+
   private
 
   def slug_candidates
@@ -185,19 +197,6 @@ class Vehicle < ApplicationRecord
       [:brand, :name, :year]
     ]
   end
-  # Rating methods
-    def update_rating_cache!
-      approved = reviews.approved
-      if approved.any?
-        update_columns(
-          reviews_count: approved.count,
-          average_rating: approved.average(:rating).to_f.round(2)
-        )
-      else
-        update_columns(reviews_count: 0, average_rating: 0.0)
-      end
-    end
-
     def rating_display
       return nil if reviews_count.zero?
       "#{average_rating.round(1)} (#{reviews_count})"

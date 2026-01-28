@@ -175,7 +175,6 @@
     <div id="reviews" class="mt-12">
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-bold">Reviews</h2>
-        <a href="#new-review" class="btn btn-primary">Write a Review</a>
       </div>
 
       <% if @reviews.any? %>
@@ -185,7 +184,7 @@
               <p class="text-5xl font-bold"><%= @vehicle.average_rating.round(1) %></p>
               <div class="rating rating-lg mt-2">
                 <% @vehicle.average_rating.round.times do %>
-                  <input type="radio" name="rating-9" class="mask mask-star-2 bg-orange-400" disabled />
+                  <input type="radio" name="rating-9" class="mask mask-star-2 bg-orange-400" disabled>
                 <% end %>
               </div>
               <p class="mt-2 text-base-content/70">Based on <%= pluralize(@vehicle.reviews_count, "review") %></p>
@@ -210,18 +209,19 @@
         </div>
       <% end %>
     </div>
+    <%= render "reviews/form", vehicle: @vehicle %>
+
     <!-- Related Vehicles -->
     <% if @related_vehicles.any? %>
       <div class="mt-12">
         <h2 class="text-2xl font-bold mb-6">Related Vehicles</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           <% @related_vehicles.each do |vehicle| %>
-            <%= render "components/vehicle_card", vehicle: vehicle %>
+            <%= render "components/vehicle_card_compact", vehicle: vehicle %>
           <% end %>
         </div>
       </div>
     <% end %>
 
-    <%= render "reviews/form", vehicle: @vehicle %>
   </div>
 </div>

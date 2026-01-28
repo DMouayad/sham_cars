@@ -41,10 +41,12 @@
       </div>
     </div>
 
-    <main class="container mx-auto px-5 flex-1">
+    <main class="flex-1">
       <%= yield %>
     </main>
 
     <%= render "footer" %>
+
+    <%= render "shared/comparison_bar" if comparison_count > 0 %>
   </body>
 </html>
