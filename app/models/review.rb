@@ -5,7 +5,7 @@
 #  id         :bigint           not null, primary key
 #  body       :text             not null
 #  rating     :integer          not null
-#  status     :integer          default("pending"), not null
+#  status     :integer          default("approved"), not null
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -30,7 +30,7 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :vehicle, counter_cache: true
 
-  enum :status, { pending: 0, approved: 1, rejected: 2 }
+  enum :status, { pending: 0, approved: 1, rejected: 2 }, default: :approved
 
   validates :rating, presence: true, inclusion: { in: 1..5 }
   validates :body, presence: true, length: { minimum: 10, maximum: 2000 }
@@ -41,19 +41,10 @@ class Review < ApplicationRecord
   scope :ordered_by_newest, -> { order(created_at: :desc) }
   scope :by_rating, -> { order(rating: :desc) }
 
-  after_save :update_vehicle_rating, if: :saved_change_to_status?
-  after_destroy :update_vehicle_rating
+  after_commit :update_vehicle_rating, on: [:create, :destroy]
 
   def rating_stars
     "★" * rating + "☆" * (5 - rating)
-  end
-
-  def approve!
-    update!(status: :approved)
-  end
-
-  def reject!
-    update!(status: :rejected)
   end
 
   private
@@ -62,4 +53,3 @@ class Review < ApplicationRecord
     vehicle.update_rating_cache!
   end
 end
-
