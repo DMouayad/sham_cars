@@ -7,7 +7,7 @@ class Settings::SessionsController < Settings::BaseController
 
   def destroy
     @session.destroy
-    redirect_to settings_sessions_path, notice: t("sessions.destroy.session_logged_out")
+    redirect_to request.referer || settings_sessions_path, notice: t("sessions.destroy.session_logged_out")
   end
 
   private
