@@ -3,7 +3,7 @@
 # Table name: sign_in_tokens
 #
 #  id      :bigint           not null, primary key
-#  user_id :integer          not null
+#  user_id :bigint           not null
 #
 # Indexes
 #
