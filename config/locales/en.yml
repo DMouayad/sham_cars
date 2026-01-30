@@ -218,119 +218,119 @@ en:
             verification_sent: "We sent a verification email to your email address"
             invalid_link: "That email verification link is invalid"
 
-        sudos:
-            new:
-                title: "Enter your password to continue"
-                password: "Password"
-                continue: "Continue"
-                why_asking: "Why are you asking me to do this?"
-                why_asking_description: "To better protect your account, we'll occasionally ask you to confirm your password before performing sensitive actions."
-                forgot_password: "Forgot your password?"
-                reset_it: "We'll help you reset it so you can continue."
-            create:
-                incorrect_password: "The password you entered is incorrect"
+    sudos:
+        new:
+            title: "Enter your password to continue"
+            password: "Password"
+            continue: "Continue"
+            why_asking: "Why are you asking me to do this?"
+            why_asking_description: "To better protect your account, we'll occasionally ask you to confirm your password before performing sensitive actions."
+            forgot_password: "Forgot your password?"
+            reset_it: "We'll help you reset it so you can continue."
+        create:
+            incorrect_password: "The password you entered is incorrect"
 
-        passwordlesses:
-            new:
-                title: "Sign in without password"
-                description: "Enter your email address and we'll send you a magic link to sign in."
-                email_address: "Email address"
-                sign_in: "Sign in"
-                back_to_sign_in: "Back to sign in"
-            create:
-                check_email: "Check your email for sign in instructions"
-                must_verify_email: "You can't sign in until you verify your email"
-                invalid_link: "That sign in link is invalid"
-            edit:
-                signed_in_successfully: "Signed in successfully"
+    passwordlesses:
+        new:
+            title: "Sign in without password"
+            description: "Enter your email address and we'll send you a magic link to sign in."
+            email_address: "Email address"
+            sign_in: "Sign in"
+            back_to_sign_in: "Back to sign in"
+        create:
+            check_email: "Check your email for sign in instructions"
+            must_verify_email: "You can't sign in until you verify your email"
+            invalid_link: "That sign in link is invalid"
+        edit:
+            signed_in_successfully: "Signed in successfully"
 
+    two_factor_authentication:
+        challenge:
+            totps:
+                new:
+                    title: "Two-Factor Authentication"
+                    description: "Open the 2FA authenticator app on your phone and type the six digit code below:"
+                    verification_code: "Verification Code"
+                    verify: "Verify"
+                    dont_have_phone: "Don't have your phone?"
+                    use_recovery_code: "Use a recovery code to access your account."
+                create:
+                    code_didnt_work: "That code didn't work. Please try again"
+                    taking_too_long: "That's taking too long. Please re-enter your password and try again"
+            recovery_codes:
+                new:
+                    title: "Recovery Code"
+                    description: "Enter one of your recovery codes below to access your account."
+                    recovery_code: "Recovery Code"
+                    continue: "Continue"
+                    info: "To access your account, enter one of the recovery codes (e.g., xxxxxxxxxx) you saved when you set up your two-factor authentication device."
+                create:
+                    code_didnt_work: "That code didn't work. Please try again"
+                    taking_too_long: "That's taking too long. Please re-enter your password and try again"
+        profile:
+            totps:
+                new:
+                    replace_setup: "Want to replace your existing 2FA setup?"
+                    replace_setup_description: "Your account is already protected with two-factor authentication. You can replace that setup if you want to switch to a new phone or authenticator app."
+                    replace_setup_warning: "Do you want to continue? Your existing 2FA setup will no longer work."
+                    yes_replace: "Yes, replace my 2FA setup"
+                    upgrade_security: "Upgrade your security with 2FA"
+                    step_1_title: "Step 1: Get an Authenticator App"
+                    step_1_description_1: "First, you'll need a 2FA authenticator app on your phone."
+                    step_1_skip: "If you already have one, skip to step 2."
+                    step_1_recommendation: "If you don't have one, or you aren't sure, we recommend Microsoft Authenticator"
+                    step_1_download: "You can download it free on the Apple App Store for iPhone, or Google Play Store for Android. Please grab your phone, search the store, and install it now."
+                    step_2_title: "Step 2: Scan + Enter the Code"
+                    step_2_description: 'Next, open the authenticator app, tap "Scan QR code" or "+", and, when it asks, point your phone''s camera at this QR code picture below.'
+                    point_camera: "Point your camera here"
+                    code_label: "After scanning with your camera, the app will generate a six-digit code. Enter it here:"
+                    verify_and_activate: "Verify and activate"
+                    back: "Back"
+                create:
+                    code_didnt_work: "That code didn't work. Please try again"
+            recovery_codes:
+                index:
+                    title: "Two-factor recovery codes"
+                    description: "Recovery codes provide a way to log in if you lose your phone (or don't have it with you). Save these and keep them somewhere safe."
+                    show_codes: "Show recovery codes"
+                    hide_codes: "Hide recovery codes"
+                    ok_done: "OK, I'm done"
+                    need_new_codes: "Need new recovery codes?"
+                    need_new_codes_description: "If you think your codes have fallen into the wrong hands, you can get a new set. Be sure to save the new ones because the old codes will stop working."
+                    generate_new: "Generate new recovery codes"
+                create:
+                    new_codes_generated: "Your new recovery codes have been generated"
+
+    events:
+        index:
+            title: "Activity Log"
+            action: "Action"
+            user_agent: "User Agent"
+            ip_address: "IP Address"
+            created_at: "Created at"
+            back: "Back"
+            no_events: "No events found"
+
+    settings:
+        title: "Settings"
+        nav:
+            profile: "Profile"
+            password: "Password"
+            email: "Email"
+            appearance: "Appearance"
+            two_factor_authentication: "Two-Factor Authentication"
+            sessions: "Sessions"
+            activity_log: "Activity Log"
         two_factor_authentication:
-            challenge:
-                totps:
-                    new:
-                        title: "Two-Factor Authentication"
-                        description: "Open the 2FA authenticator app on your phone and type the six digit code below:"
-                        verification_code: "Verification Code"
-                        verify: "Verify"
-                        dont_have_phone: "Don't have your phone?"
-                        use_recovery_code: "Use a recovery code to access your account."
-                    create:
-                        code_didnt_work: "That code didn't work. Please try again"
-                        taking_too_long: "That's taking too long. Please re-enter your password and try again"
-                recovery_codes:
-                    new:
-                        title: "Recovery Code"
-                        description: "Enter one of your recovery codes below to access your account."
-                        recovery_code: "Recovery Code"
-                        continue: "Continue"
-                        info: "To access your account, enter one of the recovery codes (e.g., xxxxxxxxxx) you saved when you set up your two-factor authentication device."
-                    create:
-                        code_didnt_work: "That code didn't work. Please try again"
-                        taking_too_long: "That's taking too long. Please re-enter your password and try again"
-            profile:
-                totps:
-                    new:
-                        replace_setup: "Want to replace your existing 2FA setup?"
-                        replace_setup_description: "Your account is already protected with two-factor authentication. You can replace that setup if you want to switch to a new phone or authenticator app."
-                        replace_setup_warning: "Do you want to continue? Your existing 2FA setup will no longer work."
-                        yes_replace: "Yes, replace my 2FA setup"
-                        upgrade_security: "Upgrade your security with 2FA"
-                        step_1_title: "Step 1: Get an Authenticator App"
-                        step_1_description_1: "First, you'll need a 2FA authenticator app on your phone."
-                        step_1_skip: "If you already have one, skip to step 2."
-                        step_1_recommendation: "If you don't have one, or you aren't sure, we recommend Microsoft Authenticator"
-                        step_1_download: "You can download it free on the Apple App Store for iPhone, or Google Play Store for Android. Please grab your phone, search the store, and install it now."
-                        step_2_title: "Step 2: Scan + Enter the Code"
-                        step_2_description: 'Next, open the authenticator app, tap "Scan QR code" or "+", and, when it asks, point your phone''s camera at this QR code picture below.'
-                        point_camera: "Point your camera here"
-                        code_label: "After scanning with your camera, the app will generate a six-digit code. Enter it here:"
-                        verify_and_activate: "Verify and activate"
-                        back: "Back"
-                    create:
-                        code_didnt_work: "That code didn't work. Please try again"
-                recovery_codes:
-                    index:
-                        title: "Two-factor recovery codes"
-                        description: "Recovery codes provide a way to log in if you lose your phone (or don't have it with you). Save these and keep them somewhere safe."
-                        show_codes: "Show recovery codes"
-                        hide_codes: "Hide recovery codes"
-                        ok_done: "OK, I'm done"
-                        need_new_codes: "Need new recovery codes?"
-                        need_new_codes_description: "If you think your codes have fallen into the wrong hands, you can get a new set. Be sure to save the new ones because the old codes will stop working."
-                        generate_new: "Generate new recovery codes"
-                    create:
-                        new_codes_generated: "Your new recovery codes have been generated"
-
-        events:
-            index:
-                title: "Activity Log"
-                action: "Action"
-                user_agent: "User Agent"
-                ip_address: "IP Address"
-                created_at: "Created at"
-                back: "Back"
-                no_events: "No events found"
-
-        settings:
-            title: "Settings"
-            nav:
-                profile: "Profile"
-                password: "Password"
-                email: "Email"
-                appearance: "Appearance"
-                two_factor_authentication: "Two-Factor Authentication"
-                sessions: "Sessions"
-                activity_log: "Activity Log"
-            two_factor_authentication:
-                enabled: "Two-factor authentication is enabled"
-                recovery_codes: "Recovery Codes"
-                view_recovery_codes: "View Recovery Codes"
-            appearance:
-                title: "Appearance"
-                description: "Choose a theme for your interface. The theme will be applied immediately."
-                theme_label: "Theme"
-                update:
-                    theme_updated: "Theme updated successfully"
+            enabled: "Two-factor authentication is enabled"
+            recovery_codes: "Recovery Codes"
+            view_recovery_codes: "View Recovery Codes"
+        appearance:
+            title: "Appearance"
+            description: "Choose a theme for your interface. The theme will be applied immediately."
+            theme_label: "Theme"
+            update:
+                theme_updated: "Theme updated successfully"
 
     admin:
         title: "Admin"
