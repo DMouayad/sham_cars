@@ -1,26 +1,26 @@
-<% content_for :title, t("pages.about.title") %>
+<% content_for :title, t("about.title") %>
 
 <div class="section-padding">
   <div class="container-app max-w-3xl">
     <%= render "components/page_header",
-        title: t("pages.about.title"),
-        subtitle: t("pages.about.subtitle") %>
+        title: t("about.title"),
+        subtitle: t("about.subtitle") %>
 
     <div class="prose prose-lg max-w-none">
       <p>
-        <%= t("pages.about.description") %>
+        <%= t("about.description") %>
       </p>
 
-      <h2><%= t("pages.about.what_we_offer") %></h2>
+      <h2><%= t("about.what_we_offer") %></h2>
       <ul>
-        <% t("pages.about.offerings").each do |offering| %>
+        <% t("about.offerings").each do |offering| %>
           <li><%= offering.html_safe %></li>
         <% end %>
       </ul>
 
-      <h2><%= t("pages.about.contact") %></h2>
+      <h2><%= t("about.contact") %></h2>
       <p>
-        <%= t("pages.about.contact_description") %>
+        <%= t("about.contact_description") %>
       </p>
     </div>
   </div>

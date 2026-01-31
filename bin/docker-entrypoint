@@ -6,6 +6,7 @@ if [[ "$*" == *"rails server"* ]] || [[ "$*" == *"bin/rails server"* ]]; then
   if [[ "${RUN_SEEDS:-}" == "true" ]]; then
       echo "Seeding the database..."
       ./bin/rails db:seed
+      ./bin/rails runner "load 'db/seeds/community_ar.rb'"
     fi
     echo "Completed: Running database setup"
 fi

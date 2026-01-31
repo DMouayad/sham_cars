@@ -24,34 +24,6 @@
     )
   end
 
-  user1 = User.find_or_create_by!(email: "user@example.com") do |user|
-    user.username = "user"
-    user.password = "password123456"
-    user.password_confirmation = "password123456"
-    user.verified = true
-  end
-
-  # Attach avatar to user1 if not already attached
-  unless user1.avatar.attached?
-    user1.avatar.attach(
-      io: File.open(Rails.root.join("spec", "fixtures", "files", "test_image.png")),
-      filename: "test_image.png",
-      content_type: "image/png"
-    )
-  end
-
-  unverified_user = User.find_or_create_by!(email: "unverified@example.com") do |user|
-    user.username = "unverified"
-    user.password = "password123456"
-    user.password_confirmation = "password123456"
-    user.verified = false
-  end
-
-  puts "Created users:"
-  puts "  - admin@example.com (username: admin, password: password123456) - with avatar"
-  puts "  - user@example.com (username: user, password: password123456) - with avatar"
-  puts "  - unverified@example.com (username: unverified, password: password123456)"
-
 # ===================
 # BODY TYPES
 # ===================

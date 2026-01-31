@@ -62,6 +62,52 @@ en:
             cta_title: "Ready to Go Electric?"
             cta_description: "Compare multiple electric vehicles side by side to find the perfect match for your needs."
             start_comparing: "Start Comparing"
+            search_placeholder: "Search by model or brand (e.g., Tesla, BYD...)"
+            search: "Search"
+            ask_question: "Ask a question"
+            recommended_for_you: "Recommended for you"
+            trending_this_week: "Trending this week"
+            latest_questions: "Latest questions"
+            latest_reviews: "Latest reviews"
+            join_now: "Join now"
+            discover_title: "Discover vehicles"
+            all_types: "All"
+            no_vehicles_for_filter: "No vehicles found for this filter."
+            discover_source:
+                recommended: "Based on your activity"
+                trending: "Trending this week"
+                featured: "Featured picks"
+
+    questions:
+        index:
+            title: "Questions"
+            ask_question: "Ask a question"
+            sign_in_to_ask: "Sign in to ask"
+        new:
+            title: "Ask a question"
+        form:
+            title: "Title"
+            body: "Details"
+            title_placeholder: "Write your question briefly"
+            body_placeholder: "Add details: car model, charging situation, city, etc."
+            submit: "Publish"
+            cancel: "Cancel"
+        show:
+            back: "Back"
+            by: "By"
+            answers_title:
+            one: "1 answer"
+            other: "%{count} answers"
+            add_answer: "Write an answer"
+            answer_placeholder: "Write your answer..."
+            submit_answer: "Post answer"
+            sign_in_to_answer: "Sign in to add an answer."
+            sign_in: "Sign in"
+        meta:
+        by: "By"
+        answers:
+            one: "1 answer"
+            other: "%{count} answers"
 
     brands:
         show:
@@ -131,6 +177,11 @@ en:
             back: "Back"
 
     reviews:
+        default_title: "Owner review"
+        rating_badge: "%{rating}/5"
+        meta:
+            by: "By"
+            read_more: "View"
         form:
             write_review: "Write a Review"
             review_submitted: "Review Submitted!"
@@ -458,3 +509,8 @@ en:
             invalid_format: "must contain only letters, numbers, dashes, and underscores"
         password:
             pwned: "might easily be guessed"
+    cities:
+        damascus: "Damascus"
+        aleppo: "Aleppo"
+        homs: "Homs"
+        latakia: "Latakia"

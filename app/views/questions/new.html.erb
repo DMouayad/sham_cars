@@ -1,0 +1,9 @@
+<% content_for :title, t("questions.new.title") %>
+
+<section class="section-padding bg-base-100">
+  <div class="container-app max-w-2xl">
+    <h1 class="text-2xl md:text-3xl font-bold mb-4"><%= t("questions.new.title") %></h1>
+
+    <%= render "form", question: @question %>
+  </div>
+</section>

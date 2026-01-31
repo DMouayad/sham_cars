@@ -1,0 +1,24 @@
+<div class="mb-3 text-sm text-base-content/60">
+  <% label =
+    case source
+    when :recommended then t("home.index.discover_source.recommended")
+    when :trending    then t("home.index.discover_source.trending")
+    else                   t("home.index.discover_source.featured")
+    end
+  %>
+  <%= label %>
+</div>
+
+<% if vehicles.present? %>
+  <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2">
+    <% vehicles.each do |vehicle| %>
+      <div class="min-w-[280px] snap-start">
+        <%= render "components/vehicle_card", vehicle: vehicle %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alert">
+    <span><%= t("home.index.no_vehicles_for_filter") %></span>
+  </div>
+<% end %>

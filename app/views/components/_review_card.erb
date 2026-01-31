@@ -1,0 +1,91 @@
+<% vehicle = review.vehicle %>
+
+<div class="bg-base-100 rounded-box overflow-hidden border border-base-300 hover:border-primary/50 transition-all duration-300">
+  <div class="p-4 space-y-3 h-[244px] flex flex-col justify-between">
+    <!-- Vehicle header (clear + consistent with vehicle card) -->
+    <div class="flex items-start gap-3 h-8">
+      <%= link_to vehicle_path(vehicle.slug),
+                  data: { turbo_frame: "_top" },
+                  class: "flex-none" do %>
+        <div class="w-14 rounded-xl overflow-hidden bg-base-200">
+          <img
+            src="<%= vehicle.primary_image_url %>"
+            alt="<%= vehicle.full_name %>"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          >
+        </div>
+      <% end %>
+
+      <div class="min-w-0 flex-1">
+        <div class="flex items-start justify-between gap-2">
+          <div class="min-w-0">
+            <p class="text-xs text-base-content/40 uppercase tracking-widest truncate">
+              <%= vehicle.brand.name %>
+              <% if vehicle.year.present? %>
+                <span class="opacity-60">•</span> <%= vehicle.year %>
+              <% end %>
+            </p>
+
+            <h3 class="font-semibold text-base leading-tight truncate">
+              <%= link_to vehicle.name,
+                          vehicle_path(vehicle.slug),
+                          data: { turbo_frame: "_top" },
+                          class: "link link-hover" %>
+            </h3>
+          </div>
+
+          <div class="flex flex-col items-end gap-1 flex-none">
+            <span class="text-xs text-warning leading-none whitespace-nowrap" aria-label="rating">
+              <%= "★" * review.rating %><span class="text-base-content/30"><%= "★" * (5 - review.rating) %></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review text -->
+    <div class="space-y-1">
+      <p class="font-semibold text-sm">
+        <%= review.title.presence || t("reviews.default_title") %>
+      </p>
+      <p class="text-sm text-base-content/70 leading-relaxed line-clamp-3">
+        <%= review.body %>
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex items-center justify-between pt-1">
+      <div class="flex items-center gap-2 min-w-0">
+        <div class="avatar placeholder">
+          <div class="bg-base-200 text-base-content w-8 rounded-full">
+            <span class="text-xs">
+              <%= (review.user.display_name.to_s.first || "?").upcase %>
+            </span>
+          </div>
+        </div>
+
+        <div class="min-w-0">
+          <div class="text-xs text-base-content/70 truncate">
+            <%= review.user.display_name %>
+          </div>
+          <div class="flex items-center gap-2">
+            <% if review.user.city.present? %>
+              <span class="badge badge-ghost badge-sm">
+                <%= t("cities.#{review.user.city}") %>
+              </span>
+            <% end %>
+            <span class="text-xs text-base-content/50 whitespace-nowrap">
+              <%= l(review.created_at.to_date) %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <%= link_to t("reviews.meta.read_more"),
+                  vehicle_path(vehicle.slug, anchor: "reviews"),
+                  data: { turbo_frame: "_top" },
+                  class: "btn btn-ghost btn-sm rounded-full" %>
+    </div>
+  </div>
+</div>

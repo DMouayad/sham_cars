@@ -4,17 +4,17 @@ module Admin
     before_action :set_form_collections, only: %i[new edit create update]
 
     def index
-       @q = Vehicle.includes(:brand, :body_type, :images)
-                   .where(published: true)
-                   .ransack(params[:q])
+      base = Vehicle.includes(:brand, :body_type, :images)
 
-       @q.sorts = default_sort if @q.sorts.empty?
+      params[:q] ||= {}
+      @q = base.ransack(params[:q])
 
-       @pagy, @vehicles = pagy(@q.result(distinct: true))
+      @q.sorts = default_sort if @q.sorts.empty?
+      @pagy, @vehicles = pagy(@q.result(distinct: true))
 
-       @brands = Brand.with_published_vehicles.ordered
-       @body_types = BodyType.ordered
-     end
+      @brands = Brand.ordered
+      @body_types = BodyType.ordered
+    end
 
      def show
        @vehicle = Vehicle.includes(:brand, :body_type, :images)
@@ -28,10 +28,6 @@ module Admin
                                   .or(Vehicle.where(body_type_id: @vehicle.body_type_id, published: true).where.not(id: @vehicle.id))
                                   .limit(4)
      end
-
-
-    def show
-    end
 
     def new
       @vehicle = Vehicle.new

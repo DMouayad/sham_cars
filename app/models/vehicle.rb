@@ -99,14 +99,14 @@ class Vehicle < ApplicationRecord
   # Ransack configuration
   def self.ransackable_attributes(auth_object = nil)
     %w[
-    name year price_from price_to range_wltp_km battery_capacity_kwh
+    name year price_from published price_to range_wltp_km battery_capacity_kwh
     acceleration_0_100 top_speed_kmh horsepower seats drive_type
-    brand_id body_type_id published featured created_at average_rating
+    brand_id body_type_id featured created_at average_rating
     ]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[brand body_type]
+    %w[brand body_type images reviews]
   end
 
   # Instance Methods
@@ -186,6 +186,30 @@ class Vehicle < ApplicationRecord
     else
       update_columns(reviews_count: 0, average_rating: 0.0)
     end
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+     %w[
+       name
+       slug
+       year
+       brand_id
+       body_type_id
+       price_from
+       price_to
+       range_wltp_km
+       range_epa_miles
+       efficiency_wh_km
+       seats
+       featured
+       published
+       created_at
+       updated_at
+     ]
+   end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[brand body_type images reviews]
   end
 
   private

@@ -1,83 +1,125 @@
 <% content_for :title, t("home.index.title") %>
 
-<!-- Hero Section -->
-<section class="hero min-h-[60vh] bg-linear-to-br from-primary/10 to-secondary/10">
-  <div class="hero-content text-center py-12 md:py-20">
+<!-- Hero -->
+<section class="bg-linear-to-b from-primary/10 to-base-100">
+  <div class="container-app py-10 md:py-16">
     <div class="max-w-2xl">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold">
+      <h1 class="text-3xl md:text-5xl font-bold leading-tight">
         <%= t("home.index.hero_title") %>
       </h1>
-      <p class="py-6 text-lg text-base-content/70">
+
+      <p class="mt-4 text-base md:text-lg text-base-content/70">
         <%= t("home.index.hero_description") %>
       </p>
-      <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <%= link_to t("home.index.browse_vehicles"), vehicles_path, class: "btn btn-primary btn-lg" %>
-        <%= link_to t("home.index.compare_evs"), comparison_path, class: "btn btn-outline btn-lg" %>
+
+      <div class="mt-6">
+        <%= form_with url: vehicles_path, method: :get, local: true, class: "w-full max-w-xl" do %>
+          <div class="join w-full">
+            <input
+              name="q[name_or_brand_name_cont]"
+              class="input input-bordered join-item w-full"
+              placeholder="<%= t("home.index.search_placeholder") %>">
+            <button class="btn btn-primary join-item" type="submit">
+              <%= t("home.index.search") %>
+            </button>
+          </div>
+        <% end %>
+
+        <div class="mt-4 flex flex-wrap gap-2">
+          <%= link_to t("home.index.ask_question"), new_question_path, class: "btn btn-outline btn-sm" %>
+          <%= link_to t("home.index.compare_evs"), comparison_path, class: "btn btn-ghost btn-sm" %>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Featured Vehicles -->
-<% if @featured_vehicles.any? %>
-  <section class="section-padding bg-base-100">
-    <div class="container-app">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl md:text-3xl font-bold"><%= t("home.index.featured_vehicles") %></h2>
-        <%= link_to "#{t("home.index.view_all")} →", vehicles_path, class: "btn btn-ghost btn-sm" %>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        <% @featured_vehicles.each do |vehicle| %>
-          <%= render "components/vehicle_card", vehicle: vehicle %>
-        <% end %>
-      </div>
-    </div>
-  </section>
-<% end %>
-
-<!-- Brands Section -->
-<% if @brands.any? %>
-  <section class="section-padding bg-base-200">
-    <div class="container-app">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl md:text-3xl font-bold"><%= t("home.index.popular_brands") %></h2>
-        <%= link_to "#{t("home.index.all_brands")} →", brands_path, class: "btn btn-ghost btn-sm" %>
-      </div>
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
-        <% @brands.each do |brand| %>
-          <%= render "components/brand_card", brand: brand %>
-        <% end %>
-      </div>
-    </div>
-  </section>
-<% end %>
-
-<!-- Body Types Section -->
+<!-- Discover section (ONE section: recommended OR trending OR featured) -->
 <section class="section-padding bg-base-100">
   <div class="container-app">
-    <h2 class="text-2xl md:text-3xl font-bold mb-6"><%= t("home.index.browse_by_type") %></h2>
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xl md:text-2xl font-bold"><%= t("home.index.discover_title") %></h2>
+      <%= link_to "#{t("home.index.view_all")} →", vehicles_path, class: "btn btn-ghost btn-sm" %>
+    </div>
 
-    <div class="flex flex-wrap gap-3">
+    <!-- Body type chips as FILTER (updates turbo frame only) -->
+    <div class="flex gap-2 overflow-x-auto pb-3">
+      <%= link_to t("home.index.all_types"),
+                  root_path,
+                  class: "btn btn-sm #{params[:body_type_id].blank? ? 'btn-primary' : 'btn-outline'}",
+                  data: { turbo_frame: "discover_vehicles" } %>
+
       <% @body_types.each do |body_type| %>
-        <%= link_to vehicles_path(q: { body_type_id_eq: body_type.id }),
-            class: "btn btn-outline gap-2" do %>
-          <span class="text-xl"><%= body_type.display_icon %></span>
+        <% active = @selected_body_type&.id == body_type.id %>
+        <%= link_to root_path(body_type_id: body_type.id),
+                    class: "btn btn-sm #{active ? 'btn-primary' : 'btn-outline'} gap-2 whitespace-nowrap",
+                    data: { turbo_frame: "discover_vehicles" } do %>
+          <span class="text-lg"><%= body_type.display_icon %></span>
           <span><%= body_type.name %></span>
         <% end %>
       <% end %>
     </div>
+
+    <%= turbo_frame_tag "discover_vehicles", target: "_top" do %>
+      <%= render "home/discover_vehicles", vehicles: @discover_vehicles, source: @discover_source %>
+    <% end %>
   </div>
 </section>
 
-<!-- CTA Section -->
+<!-- Latest Questions -->
+<% if @latest_questions.present? %>
+  <section class="section-padding bg-secondary/30">
+    <div class="container-app">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl md:text-2xl font-bold"><%= t("home.index.latest_questions") %></h2>
+        <div class="flex items-center gap-2">
+          <%= link_to t("home.index.ask_question"), new_question_path, class: "btn btn-primary btn-sm" %>
+          <%= link_to "#{t("home.index.view_all")} →", questions_path, class: "btn btn-ghost btn-sm" %>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <% @latest_questions.each do |question| %>
+          <%= render "components/question_card", question: question %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<!-- Latest Reviews -->
+<% if @latest_reviews.present? %>
+  <section class="section-padding bg-base-100">
+    <div class="container-app">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl md:text-2xl font-bold"><%= t("home.index.latest_reviews") %></h2>
+      </div>
+
+      <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2">
+        <% @latest_reviews.each do |review| %>
+          <div class="min-w-[340px] snap-start">
+            <%= render "components/review_card", review: review %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<!-- CTA: join / contribute -->
 <section class="section-padding bg-primary text-primary-content">
   <div class="container-app text-center">
-    <h2 class="text-2xl md:text-3xl font-bold mb-4"><%= t("home.index.cta_title") %></h2>
-    <p class="mb-6 opacity-90 max-w-xl mx-auto">
-      <%= t("home.index.cta_description") %>
-    </p>
-    <%= link_to t("home.index.start_comparing"), comparison_path, class: "btn btn-secondary btn-lg" %>
+    <h2 class="text-2xl md:text-3xl font-bold mb-3"><%= t("home.index.cta_title") %></h2>
+    <p class="opacity-90 max-w-xl mx-auto mb-6"><%= t("home.index.cta_description") %></p>
+
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <% if signed_in? %>
+        <%= link_to t("home.index.ask_question"), new_question_path, class: "btn btn-secondary btn-lg" %>
+        <%= link_to t("home.index.browse_vehicles"), vehicles_path, class: "btn btn-outline btn-lg" %>
+      <% else %>
+        <%= link_to t("home.index.join_now"), sign_up_path, class: "btn btn-secondary btn-lg" %>
+        <%= link_to t("home.index.browse_vehicles"), vehicles_path, class: "btn btn-outline btn-lg" %>
+      <% end %>
+    </div>
   </div>
 </section>

@@ -107,5 +107,8 @@ Rails.application.routes.draw do
     delete "remove/:slug", action: :remove, as: :remove
     delete "clear", action: :clear, as: :clear
   end
-end
+  resources :questions, only: [:index, :show, :new, :create] do
+     resources :answers, only: [:create]
+  end
+  end
 end

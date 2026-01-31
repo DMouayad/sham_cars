@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_28_082056) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_30_161346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,6 +62,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_28_082056) do
     t.index ["email"], name: "index_admin_users_on_email", unique: true
   end
 
+  create_table "answers", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.bigint "question_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["created_at"], name: "index_answers_on_created_at"
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
   create_table "body_types", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "description"
@@ -88,11 +99,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_28_082056) do
   create_table "events", force: :cascade do |t|
     t.string "action", null: false
     t.datetime "created_at", null: false
+    t.bigint "eventable_id"
+    t.string "eventable_type"
     t.string "ip_address"
     t.datetime "updated_at", null: false
     t.string "user_agent"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["action", "created_at"], name: "index_events_on_action_and_created_at"
+    t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable"
+    t.index ["user_id", "action", "created_at"], name: "index_events_on_user_id_and_action_and_created_at"
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "answers_count", default: 0, null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.integer "status", default: 1, null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.integer "views_count", default: 0, null: false
+    t.index ["created_at"], name: "index_questions_on_created_at"
+    t.index ["status"], name: "index_questions_on_status"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "recovery_codes", force: :cascade do |t|
@@ -100,7 +130,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_28_082056) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "used", default: false, null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_recovery_codes_on_user_id"
   end
 
@@ -126,16 +156,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_28_082056) do
     t.datetime "sudo_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_agent"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "sign_in_tokens", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_sign_in_tokens_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "city"
     t.datetime "created_at", null: false
     t.string "email", null: false
     t.boolean "otp_required_for_sign_in", default: false, null: false
@@ -214,7 +245,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_28_082056) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
   add_foreign_key "events", "users"
+  add_foreign_key "questions", "users"
   add_foreign_key "recovery_codes", "users"
   add_foreign_key "reviews", "users"
   add_foreign_key "reviews", "vehicles"

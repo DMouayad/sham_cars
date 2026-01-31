@@ -1,0 +1,73 @@
+<% content_for :title, @question.title %>
+
+<section class="section-padding bg-base-100">
+  <div class="container-app max-w-3xl">
+    <div class="mb-6">
+      <%= link_to "← #{t("questions.show.back")}", questions_path, class: "btn btn-ghost btn-sm" %>
+
+      <h1 class="text-2xl md:text-3xl font-bold mt-3"><%= @question.title %></h1>
+
+      <div class="text-sm text-base-content/60 mt-2">
+        <%= t("questions.show.by") %>
+        <%= @question.user.username.presence || @question.user.email %>
+        <span class="opacity-60">•</span>
+        <%= l(@question.created_at.to_date) %>
+      </div>
+
+      <div class="prose max-w-none mt-4">
+        <%= simple_format(@question.body) %>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2 class="text-xl font-bold mb-3">
+      <%= t("questions.show.answers_title", count: @question.answers_count) %>
+    </h2>
+
+    <div class="space-y-3">
+      <% @question.answers.each do |answer| %>
+        <div class="card bg-base-200 border border-base-300">
+          <div class="card-body p-4">
+            <div class="text-sm text-base-content/60 mb-2">
+              <%= answer.user.username.presence || answer.user.email %>
+              <span class="opacity-60">•</span>
+              <%= l(answer.created_at.to_date) %>
+            </div>
+            <div class="prose max-w-none">
+              <%= simple_format(answer.body) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="divider"></div>
+
+    <% if signed_in? %>
+      <h3 class="text-lg font-bold mb-3"><%= t("questions.show.add_answer") %></h3>
+
+      <%= form_with model: [@question, @answer], class: "space-y-3" do |f| %>
+        <% if @answer.errors.any? %>
+          <div class="alert alert-error">
+            <ul class="list-disc ms-5">
+              <% @answer.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= f.text_area :body, class: "textarea textarea-bordered w-full min-h-28",
+              placeholder: t("questions.show.answer_placeholder") %>
+
+        <%= f.submit t("questions.show.submit_answer"), class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+      <div class="alert">
+        <span><%= t("questions.show.sign_in_to_answer") %></span>
+        <%= link_to t("questions.show.sign_in"), sign_in_path, class: "btn btn-primary btn-sm" %>
+      </div>
+    <% end %>
+  </div>
+</section>

@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                       :bigint           not null, primary key
+#  city                     :string
 #  email                    :string           not null
 #  otp_required_for_sign_in :boolean          default(FALSE), not null
 #  otp_secret               :string           not null

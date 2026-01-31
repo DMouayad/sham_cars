@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                       :bigint           not null, primary key
+#  city                     :string
 #  email                    :string           not null
 #  otp_required_for_sign_in :boolean          default(FALSE), not null
 #  otp_secret               :string           not null
@@ -82,6 +83,8 @@ class User < ApplicationRecord
   has_many :sign_in_tokens, dependent: :destroy
   has_many :events, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :questions, dependent: :destroy
+  has_many :answers, dependent: :destroy
 
   has_one_attached :avatar
   has_rich_text :bio
@@ -90,7 +93,8 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A[a-zA-Z0-9_-]+\z/, message: ->(object, data) { I18n.t("errors.username.invalid_format") } }
   validates :password, allow_nil: true, length: { minimum: 12 }
   # validates :password, not_pwned: { message: ->(_object, _data) { I18n.t("errors.password.pwned") } }
-
+  CITIES = %w[damascus aleppo homs latakia].freeze
+  validates :city, inclusion: { in: CITIES }, allow_nil: true
   normalizes :email, with: -> { _1.strip.downcase }
   normalizes :username, with: -> { _1.strip.downcase }
 

@@ -2,17 +2,22 @@
 #
 # Table name: events
 #
-#  id         :bigint           not null, primary key
-#  action     :string           not null
-#  ip_address :string
-#  user_agent :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :integer          not null
+#  id             :bigint           not null, primary key
+#  action         :string           not null
+#  eventable_type :string
+#  ip_address     :string
+#  user_agent     :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  eventable_id   :bigint
+#  user_id        :bigint           not null
 #
 # Indexes
 #
-#  index_events_on_user_id  (user_id)
+#  index_events_on_action_and_created_at              (action,created_at)
+#  index_events_on_eventable                          (eventable_type,eventable_id)
+#  index_events_on_user_id                            (user_id)
+#  index_events_on_user_id_and_action_and_created_at  (user_id,action,created_at)
 #
 # Foreign Keys
 #

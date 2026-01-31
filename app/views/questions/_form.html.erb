@@ -1,0 +1,29 @@
+<%= form_with model: question, class: "space-y-4" do |f| %>
+  <% if question.errors.any? %>
+    <div class="alert alert-error">
+      <div>
+        <h3 class="font-bold"><%= t("errors.messages.not_saved") %></h3>
+        <ul class="list-disc ms-5">
+          <% question.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-control">
+    <%= f.label :title, t("questions.form.title"), class: "label font-semibold" %>
+    <%= f.text_field :title, class: "input input-bordered", placeholder: t("questions.form.title_placeholder") %>
+  </div>
+
+  <div class="form-control">
+    <%= f.label :body, t("questions.form.body"), class: "label font-semibold" %>
+    <%= f.text_area :body, class: "textarea textarea-bordered min-h-32", placeholder: t("questions.form.body_placeholder") %>
+  </div>
+
+  <div class="flex gap-2">
+    <%= f.submit t("questions.form.submit"), class: "btn btn-primary" %>
+    <%= link_to t("questions.form.cancel"), questions_path, class: "btn btn-ghost" %>
+  </div>
+<% end %>

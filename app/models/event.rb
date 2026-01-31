@@ -14,7 +14,10 @@
 #
 # Indexes
 #
-#  index_events_on_user_id  (user_id)
+#  index_events_on_action_and_created_at              (action,created_at)
+#  index_events_on_eventable                          (eventable_type,eventable_id)
+#  index_events_on_user_id                            (user_id)
+#  index_events_on_user_id_and_action_and_created_at  (user_id,action,created_at)
 #
 # Foreign Keys
 #
@@ -22,9 +25,12 @@
 #
 class Event < ApplicationRecord
   belongs_to :user
+  belongs_to :eventable, polymorphic: true, optional: true
 
   before_create do
     self.user_agent = Current.user_agent
     self.ip_address = Current.ip_address
   end
+
+  validates :action, presence: true
 end
