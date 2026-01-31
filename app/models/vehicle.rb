@@ -96,19 +96,6 @@ class Vehicle < ApplicationRecord
   scope :by_brand, ->(brand_id) { where(brand_id: brand_id) }
   scope :by_body_type, ->(body_type_id) { where(body_type_id: body_type_id) }
 
-  # Ransack configuration
-  def self.ransackable_attributes(auth_object = nil)
-    %w[
-    name year price_from published price_to range_wltp_km battery_capacity_kwh
-    acceleration_0_100 top_speed_kmh horsepower seats drive_type
-    brand_id body_type_id featured created_at average_rating
-    ]
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    %w[brand body_type images reviews]
-  end
-
   # Instance Methods
   def full_name
     "#{brand.name} #{name}"
