@@ -3,7 +3,7 @@
 @source not "./daisyui{,*}.mjs";
 
 @plugin "./daisyui.mjs" {
-    themes: all;
+    themes: corporate --default;
 }
 
 /* Optional for custom themes – Docs: https://daisyui.com/docs/themes/#how-to-add-a-new-custom-theme */
@@ -27,6 +27,11 @@
         --font-sans:
             "Tajawal", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
             Roboto, Arial, "Noto Sans", sans-serif;
+    }
+    :root {
+        --rounded-box: 1rem; /* 16px cards */
+        --rounded-btn: 9999px; /* pills */
+        --rounded-badge: 9999px;
     }
 }
 
