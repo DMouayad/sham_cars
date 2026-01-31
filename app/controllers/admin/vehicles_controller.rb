@@ -17,10 +17,6 @@ module Admin
     end
 
      def show
-       @vehicle = Vehicle.includes(:brand, :body_type, :images)
-                         .friendly
-                         .find(params[:slug])
-
        @related_vehicles = Vehicle.includes(:brand, :images)
                                   .where(published: true)
                                   .where.not(id: @vehicle.id)
@@ -78,7 +74,7 @@ module Admin
     private
 
     def set_vehicle
-      @vehicle = Vehicle.find(params[:id])
+      @vehicle = Vehicle.includes(:brand, :body_type, :images).friendly.find(params[:id])
     end
 
     def set_form_collections
