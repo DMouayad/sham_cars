@@ -1,4 +1,6 @@
 
+ActiveJob::Base.queue_adapter = :inline
+
 puts "== Seeding SY community (AR, city-based, non-admin) =="
 
 CITIES = %w[damascus aleppo homs latakia].freeze
