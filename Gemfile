@@ -67,7 +67,7 @@ gem "shoulda-matchers", "~> 7.0", group: :test
 
 gem "factory_bot_rails", "~> 6.5", groups: [ :development, :test ]
 
-gem "annotaterb", "~> 4.20", group: :development
+gem "annotaterb", "~> 4.21", group: :development
 
 gem "authentication-zero", "~> 4.0", group: :development
 # Use Pwned to check if a password has been found in any of the huge data breaches [https://github.com/philnash/pwned]
